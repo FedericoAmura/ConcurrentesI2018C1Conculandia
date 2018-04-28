@@ -9,7 +9,7 @@ using namespace std;
 int main(int argc, char* argv[]) {
     t_parametros params = Util::tomarParametros(argc, argv);
 
-    Logger logger("log.txt", true);
+    Logger logger("log.txt", true); // TODO hacer que el debugging se active cuando lo corres con parametro -d
     logger.log("Cargando oficina de aduanas de conculandia");
 
     logger.log("Oficina inicializada con "+to_string(params.cantSellos)+" sellos");
