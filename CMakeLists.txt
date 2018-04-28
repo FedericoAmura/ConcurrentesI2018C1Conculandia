@@ -7,10 +7,14 @@ set(SOURCE
         )
 
 add_subdirectory("${PROJECT_SOURCE_DIR}/Util")
+add_subdirectory("${PROJECT_SOURCE_DIR}/Fifos")
 add_subdirectory("${PROJECT_SOURCE_DIR}/Lock")
 add_subdirectory("${PROJECT_SOURCE_DIR}/Logger")
 add_subdirectory("${PROJECT_SOURCE_DIR}/Printer")
 add_subdirectory("${PROJECT_SOURCE_DIR}/ProcesoHijo")
 add_subdirectory("${PROJECT_SOURCE_DIR}/Signal")
+add_subdirectory("${PROJECT_SOURCE_DIR}/Ventanilla")
+add_subdirectory("${PROJECT_SOURCE_DIR}/Persona")
+add_subdirectory("${PROJECT_SOURCE_DIR}/FilaEspera")
 
 add_executable(aduanaconculandia ${SOURCE} ${HEADERS})
