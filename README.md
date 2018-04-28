@@ -8,4 +8,4 @@ Para mas informacion, puede revisar el [informe](https://docs.google.com/documen
 
 El siguiente diagrama de procesos modela los diferentes procesos que se ejecutan dentro del sistema asi como tambien las tecnicas de comunicacion y sincronizacion que utilizan entre ellos
 
-![Diagrama de procesos](https://github.com/FedericoAmura/ConcurrentesI2018C1Conculandia/diagramaProcesos.png "Diagrama de procesos")
+![Diagrama de procesos](https://github.com/FedericoAmura/ConcurrentesI2018C1Conculandia/blob/master/diagramaProcesos.png "Diagrama de procesos")
