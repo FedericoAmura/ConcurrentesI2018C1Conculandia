@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
     cout << "Oficina inicializada con " << params.cantVentanillas << " ventanillas" << endl;
 
     // imprimo y loopeo sobre el menu
-    char input;
+    char input = 'a';
     while (input != '0') {
         cout << endl << "------- MENU -------" << endl;
         cout << "0: Salir" << endl;
