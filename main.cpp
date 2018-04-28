@@ -2,6 +2,7 @@
 #include <string>
 
 #include "./Logger/Logger.h"
+#include "./Printer/Printer.h"
 #include "./Util/Util.h"
 
 using namespace std;
@@ -14,6 +15,9 @@ int main(int argc, char* argv[]) {
 
     logger.log("Oficina inicializada con "+to_string(params.cantSellos)+" sellos");
     logger.log("Oficina inicializada con "+to_string(params.cantVentanillas)+" ventanillas");
+
+    Printer printer(logger);
+    printer.ejecutar();
 
     // imprimo y loopeo sobre el menu
     char input = 'a';
@@ -32,6 +36,8 @@ int main(int argc, char* argv[]) {
                 break;
         }
     }
+
+    printer.terminar();
 
     logger.log("Finalizando oficina de aduanas de conculandia");
     return 0;
