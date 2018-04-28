@@ -19,3 +19,5 @@ Por ejemplo
 ```bash
 ./aduanaconculandia -v 5 -s 3
 ```
+
+Una vez dentro del programa, un menu interactivo lo llevara por las diferentes opciones que desee ejecutar
