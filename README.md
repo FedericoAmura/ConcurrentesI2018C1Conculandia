@@ -1,6 +1,6 @@
-# ConcurrentesI2018C1Conculandia
+# Aduana Conculandia
 
-Consiste en un simulador de la oficina de aduanas del pais conculandia
+Este proyecto es un simulador de la oficina de aduanas del pais conculandia. Es el primer trabajo practico de la materia 75.59 Tecnicas de programacion concurrente I de la FIUBA
 
 Para mas informacion, puede revisar el [informe](https://docs.google.com/document/d/1Z-Cl7awIQP-KW8EVxxx5jXw9S37zjfRLdaCBrTa8dXo "Informe")
 
