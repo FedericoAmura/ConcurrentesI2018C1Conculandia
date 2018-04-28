@@ -1,16 +1,19 @@
 #include <iostream>
+#include <string>
 
+#include "./Logger/Logger.h"
 #include "./Util/Util.h"
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
-    cout << "Cargando oficina de aduanas de conculandia (pid: " << getpid() << ")" << endl;
-
     t_parametros params = Util::tomarParametros(argc, argv);
 
-    cout << "Oficina inicializada con " << params.cantSellos << " sellos" << endl;
-    cout << "Oficina inicializada con " << params.cantVentanillas << " ventanillas" << endl;
+    Logger logger("log.txt", true);
+    logger.log("Cargando oficina de aduanas de conculandia");
+
+    logger.log("Oficina inicializada con "+to_string(params.cantSellos)+" sellos");
+    logger.log("Oficina inicializada con "+to_string(params.cantVentanillas)+" ventanillas");
 
     // imprimo y loopeo sobre el menu
     char input = 'a';
@@ -30,6 +33,6 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    cout << endl << "Finalizando oficina de aduanas de conculandia (pid: " << getpid() << ")" << endl;
+    logger.log("Finalizando oficina de aduanas de conculandia");
     return 0;
 }

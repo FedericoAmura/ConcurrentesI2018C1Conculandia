@@ -7,5 +7,7 @@ set(SOURCE
         )
 
 add_subdirectory("${PROJECT_SOURCE_DIR}/Util")
+add_subdirectory("${PROJECT_SOURCE_DIR}/Lock")
+add_subdirectory("${PROJECT_SOURCE_DIR}/Logger")
 
 add_executable(aduanaconculandia ${SOURCE} ${HEADERS})
