@@ -4,6 +4,8 @@
 #include "./Logger/Logger.h"
 #include "./Printer/Printer.h"
 #include "./Util/Util.h"
+#include "Ventanilla/Ventanilla.h"
+#include "FilaEspera/FilaEspera.h"
 
 using namespace std;
 
@@ -14,10 +16,18 @@ int main(int argc, char* argv[]) {
     logger.log("Cargando oficina de aduanas de conculandia");
 
     logger.log("Oficina inicializada con "+to_string(params.cantSellos)+" sellos");
-    logger.log("Oficina inicializada con "+to_string(params.cantVentanillas)+" ventanillas");
 
-    Printer printer(logger);
-    printer.ejecutar();
+    FilaEspera filaEspera(logger);
+    filaEspera.ejecutar();
+
+    vector<Ventanilla*> ventanillas;
+    for (int i = 0; i < params.cantVentanillas; ++i) {
+        Ventanilla* ventanilla = new Ventanilla(logger);
+        ventanillas.push_back(ventanilla);
+        ventanilla->ejecutar();
+    }
+
+    logger.log("Oficina inicializada con "+to_string(params.cantVentanillas)+" ventanillas");
 
     // imprimo y loopeo sobre el menu
     char input = 'a';
@@ -37,7 +47,13 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    printer.terminar();
+
+    filaEspera.terminar();
+    for (int i = 0; i < params.cantVentanillas; ++i) {
+        Ventanilla* ventanilla = ventanillas.at(i);
+        ventanilla->terminar();
+        delete(ventanilla);
+    }
 
     logger.log("Finalizando oficina de aduanas de conculandia");
     return 0;

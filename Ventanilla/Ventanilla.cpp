@@ -20,7 +20,7 @@ pid_t Ventanilla::ejecutar() {
 
     iniciarAtencion(0);
 
-    logger.log("Printer cerrandose");
+    logger.log("Termino la tarea de la ventanilla ");
     SignalHandler::destruir();
 
     exit(0);
@@ -37,13 +37,12 @@ void Ventanilla::iniciarAtencion(int cantidadSellos) {
     FifoLectura canal ( ARCHIVO_FIFO );
     canal.abrir();
     ssize_t bytesleidos = canal.leer(static_cast<void*>(buffer), Persona::TAMANIO_SERIALIZADO);
-
     while (bytesleidos > 0 && sigint_handler.getGracefulQuit() == 0) {
         if (bytesleidos == Persona::TAMANIO_SERIALIZADO) {
             string mensaje = buffer;
             Persona persona;
             persona.deserializar(buffer);
-            logger.log("Atendiendo a DNI: " + persona.getNumeroDocumento());
+            logger.log("Atendiendo a DNI: " + to_string(persona.getNumeroDocumento()));
         } else if (bytesleidos > 0){
             logger.log("La cantidad de bytes leidos no coincide ");
         }
@@ -65,9 +64,9 @@ void Ventanilla::iniciarAtencion(int cantidadSellos) {
 
 
 Ventanilla::Ventanilla(Logger& logger) : ProcesoHijo(logger) {
-    logger.log("Printer creado");
+    logger.log("Ventanilla creado");
 };
 
 Ventanilla::~Ventanilla() {
-    logger.log("Printer destruido");
+    logger.log("Ventanilla destruido");
 };

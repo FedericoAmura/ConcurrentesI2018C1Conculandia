@@ -20,7 +20,7 @@ pid_t FilaEspera::ejecutar() {
 
     inicializar();
 
-    logger.log("Fila Espera cerrandose");
+    logger.log("Termino la tarea de la fila espera");
     SignalHandler::destruir();
 
     exit(0);
@@ -66,13 +66,12 @@ void FilaEspera::inicializar() {
 
     canal.cerrar();
     canal.eliminar();
-
 }
 
 FilaEspera::FilaEspera(Logger& logger) : ProcesoHijo(logger) {
-    logger.log("Printer creado");
+    logger.log("FilaEspera creado");
 };
 
 FilaEspera::~FilaEspera() {
-    logger.log("Printer destruido");
+    logger.log("FilaEspera destruido");
 };
