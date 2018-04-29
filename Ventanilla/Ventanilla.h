@@ -32,13 +32,19 @@
 
 class Ventanilla : public ProcesoHijo{
 
+private:
+    FifoLectura canalLectura;
+    LockFile lockExclusivo;
+
 public:
-    explicit Ventanilla(Logger& logger);
+    explicit Ventanilla(Logger& logger, FifoLectura& canalLectura);
     ~Ventanilla();
 
     pid_t ejecutar();
 
     void iniciarAtencion(int cantidadSellos);
+
+    ssize_t leerSiguientePersona(char *buffer);
 };
 
 

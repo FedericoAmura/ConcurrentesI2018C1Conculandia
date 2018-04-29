@@ -32,8 +32,9 @@
 class FilaEspera : public ProcesoHijo{
 private:
     std::vector<Persona> obtenerPersonas();
+    FifoEscritura canalEscritura;
 public:
-    explicit FilaEspera(Logger& logger);
+    explicit FilaEspera(Logger& logger, FifoEscritura& canalEscritura);
     ~FilaEspera();
 
     pid_t ejecutar();

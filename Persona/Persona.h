@@ -15,6 +15,8 @@ public:
 
     Persona();
 
+    Persona(char * buffer);
+
     Persona(int tipoPersona, int numeroDocumento);
 
     static int TAMANIO_SERIALIZADO;

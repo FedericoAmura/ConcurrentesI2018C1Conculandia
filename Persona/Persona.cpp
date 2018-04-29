@@ -41,5 +41,8 @@ void Persona::setNumeroDocumento(int numeroDocumento) {
 }
 
 Persona::Persona(int tipoPersona, int numeroDocumento) : tipoPersona(tipoPersona), numeroDocumento(numeroDocumento) {}
+Persona::Persona(char * buffer) {
+    deserializar(buffer);
+}
 
 Persona::Persona() = default;

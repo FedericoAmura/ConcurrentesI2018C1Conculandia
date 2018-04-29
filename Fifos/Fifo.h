@@ -15,6 +15,8 @@ public:
 	void cerrar();
 	void eliminar() const;
 
+	const std::string &getNombre() const;
+
 protected:
 	std::string nombre;
 	int fd;

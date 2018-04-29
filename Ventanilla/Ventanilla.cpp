@@ -7,16 +7,14 @@
 using namespace std;
 
 pid_t Ventanilla::ejecutar() {
-    logger.log("Ejecutamos el printer");
     pid = fork();
-
     // en el padre devuelvo el process id
     if (pid != 0) return pid;
 
     // siendo printer, me seteo y ejecuto lo que quiero
     SignalHandler::getInstance()->registrarHandler (SIGINT, &sigint_handler);
 
-    logger.log("Naci como Ventanilla y tengo el pid: "+to_string(getProcessId()));
+    logger.log("Naci como Ventanilla y tengo el pid: "+to_string(getpid()));
 
     iniciarAtencion(0);
 
@@ -33,20 +31,19 @@ pid_t Ventanilla::ejecutar() {
 void Ventanilla::iniciarAtencion(int cantidadSellos) {
 
     char buffer[Persona::TAMANIO_SERIALIZADO];
-    static const string ARCHIVO_FIFO = "/tmp/archivo_fifo";
-    FifoLectura canal ( ARCHIVO_FIFO );
-    canal.abrir();
-    ssize_t bytesleidos = canal.leer(static_cast<void*>(buffer), Persona::TAMANIO_SERIALIZADO);
+
+    canalLectura.abrir();
+
+    ssize_t bytesleidos = leerSiguientePersona(buffer);
+
     while (bytesleidos > 0 && sigint_handler.getGracefulQuit() == 0) {
         if (bytesleidos == Persona::TAMANIO_SERIALIZADO) {
-            string mensaje = buffer;
-            Persona persona;
-            persona.deserializar(buffer);
+            Persona persona(buffer);
             logger.log("Atendiendo a DNI: " + to_string(persona.getNumeroDocumento()));
         } else if (bytesleidos > 0){
             logger.log("La cantidad de bytes leidos no coincide ");
         }
-        bytesleidos = canal.leer(static_cast<void*>(buffer), Persona::TAMANIO_SERIALIZADO);
+        ssize_t bytesleidos = leerSiguientePersona(buffer);
     }
     if (bytesleidos == -1) {
         if (errno == EINTR) {
@@ -58,12 +55,20 @@ void Ventanilla::iniciarAtencion(int cantidadSellos) {
         }
     }
 
-    canal.cerrar();
+    canalLectura.cerrar();
 
 }
 
+ssize_t Ventanilla::leerSiguientePersona( char *buffer) {
+    lockExclusivo.tomarLock();
+    ssize_t bytesleidos = canalLectura.leer(static_cast<void*>(buffer), Persona::TAMANIO_SERIALIZADO);
+    lockExclusivo.liberarLock();
+    return bytesleidos;
+}
 
-Ventanilla::Ventanilla(Logger& logger) : ProcesoHijo(logger) {
+
+Ventanilla::Ventanilla(Logger& logger, FifoLectura &canal)
+        : ProcesoHijo(logger), canalLectura(canal), lockExclusivo("/tmp/lockExclusivoFifo") {
     logger.log("Ventanilla creado");
 };
 

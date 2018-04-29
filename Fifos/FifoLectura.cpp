@@ -3,6 +3,9 @@
 FifoLectura::FifoLectura(const std::string nombre) : Fifo(nombre) {
 }
 
+FifoLectura::FifoLectura(const FifoLectura& fifo): Fifo(fifo.getNombre()){
+}
+
 FifoLectura::~FifoLectura() {
 }
 

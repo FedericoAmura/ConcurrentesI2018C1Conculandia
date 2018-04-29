@@ -15,3 +15,7 @@ void Fifo::cerrar() {
 void Fifo::eliminar() const {
 	unlink ( nombre.c_str() );
 }
+
+const std::string &Fifo::getNombre() const {
+    return nombre;
+}

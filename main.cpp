@@ -12,17 +12,21 @@ using namespace std;
 int main(int argc, char* argv[]) {
     t_parametros params = Util::tomarParametros(argc, argv);
 
+
     Logger logger("log.txt", true); // TODO hacer que el debugging se active cuando lo corres con parametro -d
     logger.log("Cargando oficina de aduanas de conculandia");
 
     logger.log("Oficina inicializada con "+to_string(params.cantSellos)+" sellos");
+    static const string ARCHIVO_FIFO = "/tmp/archivo_fifo";
+    FifoLectura canalLectura( ARCHIVO_FIFO );
+    FifoEscritura canalEscritura( ARCHIVO_FIFO );
 
-    FilaEspera filaEspera(logger);
+    FilaEspera filaEspera(logger, canalEscritura);
     filaEspera.ejecutar();
 
     vector<Ventanilla*> ventanillas;
     for (int i = 0; i < params.cantVentanillas; ++i) {
-        Ventanilla* ventanilla = new Ventanilla(logger);
+        Ventanilla* ventanilla = new Ventanilla(logger, canalLectura);
         ventanillas.push_back(ventanilla);
         ventanilla->ejecutar();
     }

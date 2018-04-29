@@ -50,25 +50,18 @@ vector<Persona> FilaEspera::obtenerPersonas() {
 
 void FilaEspera::inicializar() {
     vector<Persona> personas = obtenerPersonas();
-
-    static const string ARCHIVO_FIFO = "/tmp/archivo_fifo";
-
-    FifoEscritura canal ( ARCHIVO_FIFO );
-    canal.abrir();
-
+    canalEscritura.abrir();
     for (Persona persona : personas) {
         sleep(2);
-        canal.escribir(persona.serializar(), Persona::TAMANIO_SERIALIZADO);
+        canalEscritura.escribir(persona.serializar(), Persona::TAMANIO_SERIALIZADO);
         if (sigint_handler.getGracefulQuit() == 1) {
             break;
         }
     }
-
-    canal.cerrar();
-    canal.eliminar();
+    canalEscritura.cerrar();
 }
 
-FilaEspera::FilaEspera(Logger& logger) : ProcesoHijo(logger) {
+FilaEspera::FilaEspera(Logger& logger, FifoEscritura& canalEscritura) : ProcesoHijo(logger), canalEscritura(canalEscritura) {
     logger.log("FilaEspera creado");
 };
 

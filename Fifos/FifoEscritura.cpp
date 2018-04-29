@@ -3,6 +3,9 @@
 FifoEscritura::FifoEscritura(const std::string nombre) : Fifo(nombre) {
 }
 
+FifoEscritura::FifoEscritura(FifoEscritura& fifoEscritura): Fifo(fifoEscritura.getNombre()){
+}
+
 FifoEscritura::~FifoEscritura() {
 }
 
