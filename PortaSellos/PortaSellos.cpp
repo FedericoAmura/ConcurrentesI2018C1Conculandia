@@ -1,4 +1,4 @@
-#include "PortaSellos.h"
+#include "./PortaSellos.h"
 
 Sello PortaSellos::sello = Sello();
 
