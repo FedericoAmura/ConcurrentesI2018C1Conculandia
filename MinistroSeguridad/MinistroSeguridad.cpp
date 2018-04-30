@@ -1,24 +1,15 @@
-//
-// Created by nestor on 30/04/18.
-//
-
-#include "MinistroSeguridad.h"
-
-
-MinistroSeguridad::MinistroSeguridad(Logger& logger) : ProcesoHijo(logger){
-}
-
-MinistroSeguridad::~MinistroSeguridad(){
-}
+#include "./MinistroSeguridad.h"
+#include "../Signal/SignalHandler.h"
 
 pid_t MinistroSeguridad::ejecutar(){
+    logger.log("Ejecutamos el ministro de seguridad");
     pid = fork();
 
     // en el padre devuelvo el process id
     if (pid != 0) return pid;
 
     // siendo ministro, me seteo y ejecuto lo que quiero
-    SignalHandler::getInstance()->registrarHandler (SIGINT, &sigint_handler);
+    SignalHandler::getInstance()->registrarHandler(SIGINT, &sigint_handler);
 
     logger.log("Naci como ministro y tengo el pid: "+to_string(getpid()));
     while (sigint_handler.getGracefulQuit() == 0) {
@@ -32,16 +23,16 @@ pid_t MinistroSeguridad::ejecutar(){
     exit(0);
 }
 
-
-
-int MinistroSeguridad::altaUsuarioCaracteristica(string caracteristica){
-
+int MinistroSeguridad::altaUsuarioCaracteristica(string caracteristica) {
 }
 
-int MinistroSeguridad::bajaUsuarioCaracteristica(int numeroRegistroCaracteristica){
-
+int MinistroSeguridad::bajaUsuarioCaracteristica(int numeroRegistroCaracteristica) {
 }
 
-std::vector<string> MinistroSeguridad::consultaUsuarioCaracteristicas(){
-
+std::vector<string> MinistroSeguridad::consultaUsuarioCaracteristicas() {
 }
+
+MinistroSeguridad::MinistroSeguridad(Logger& logger) :
+        ProcesoHijo(logger) {}
+
+MinistroSeguridad::~MinistroSeguridad() = default;
