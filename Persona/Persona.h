@@ -5,11 +5,16 @@
 #ifndef TP1_CONCULANDIA_PERSONA_H
 #define TP1_CONCULANDIA_PERSONA_H
 
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 class Persona {
 private:
     int tipoPersona;
     int numeroDocumento;
+    string caracteristica;
 
 public:
 
@@ -34,7 +39,9 @@ public:
 
     void setNumeroDocumento(int numeroDocumento);
 
+    const string &getCaracteristica() const;
 
+    void setCaracteristica(const string &caracteristica);
 };
 
 
