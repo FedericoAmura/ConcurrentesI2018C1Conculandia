@@ -13,6 +13,7 @@ void ProcesoHijo::terminar() {
     kill(getProcessId(), SIGINT);
 }
 
-ProcesoHijo::ProcesoHijo(Logger& logger) : logger(logger) {};
+ProcesoHijo::ProcesoHijo(Logger& logger) :
+    logger(logger) {};
 
 ProcesoHijo::~ProcesoHijo() = default;

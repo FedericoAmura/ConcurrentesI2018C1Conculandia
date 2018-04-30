@@ -9,9 +9,9 @@ class Printer : public ProcesoHijo {
 
 public:
     explicit Printer(Logger& logger);
-    ~Printer();
+    ~Printer() override;
 
-    pid_t ejecutar();
+    pid_t ejecutar() override;
 };
 
 

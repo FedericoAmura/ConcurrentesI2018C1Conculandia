@@ -1,12 +1,12 @@
 #include <iostream>
 #include <string>
 
+#include "./FilaEspera/FilaEspera.h"
 #include "./Logger/Logger.h"
+#include "./PortaSellos/PortaSellos.h"
 #include "./Printer/Printer.h"
 #include "./Util/Util.h"
-#include "Ventanilla/Ventanilla.h"
-#include "FilaEspera/FilaEspera.h"
-#include "PortaSellos/PortaSellos.h"
+#include "./Ventanilla/Ventanilla.h"
 
 using namespace std;
 
@@ -19,8 +19,8 @@ int main(int argc, char* argv[]) {
 
     logger.log("Oficina inicializada con "+to_string(params.cantSellos)+" sellos");
     static const string ARCHIVO_FIFO = "/tmp/archivo_fifo";
-    FifoLectura canalLectura( ARCHIVO_FIFO );
-    FifoEscritura canalEscritura( ARCHIVO_FIFO );
+    FifoLectura canalLectura(ARCHIVO_FIFO);
+    FifoEscritura canalEscritura(ARCHIVO_FIFO);
 
     FilaEspera filaEspera(logger, canalEscritura);
     filaEspera.ejecutar();

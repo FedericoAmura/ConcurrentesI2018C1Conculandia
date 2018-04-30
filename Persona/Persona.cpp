@@ -1,12 +1,8 @@
-//
-// Created by nestor on 22/04/18.
-//
-
-#include <string>
-#include <sstream>
 #include <iomanip>
 #include <iostream>
-#include "Persona.h"
+#include <sstream>
+
+#include "./Persona.h"
 
 using namespace std;
 
@@ -29,7 +25,7 @@ int Persona::getTipoPersona() const {
 }
 
 void Persona::setTipoPersona(int tipoPersona) {
-    Persona::tipoPersona = tipoPersona;
+    this->tipoPersona = tipoPersona;
 }
 
 int Persona::getNumeroDocumento() const {
@@ -37,7 +33,7 @@ int Persona::getNumeroDocumento() const {
 }
 
 void Persona::setNumeroDocumento(int numeroDocumento) {
-    Persona::numeroDocumento = numeroDocumento;
+    this->numeroDocumento = numeroDocumento;
 }
 
 Persona::Persona(int tipoPersona, int numeroDocumento) : tipoPersona(tipoPersona), numeroDocumento(numeroDocumento) {}

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Printer.h"
+#include "./Printer.h"
 #include "../Signal/SignalHandler.h"
 
 pid_t Printer::ejecutar() {
@@ -13,7 +13,7 @@ pid_t Printer::ejecutar() {
     // siendo printer, me seteo y ejecuto lo que quiero
     SignalHandler::getInstance()->registrarHandler (SIGINT, &sigint_handler);
 
-    logger.log("Naci como printer y tengo el pid: "+to_string(getProcessId()));
+    logger.log("Naci como printer y tengo el pid: "+to_string(getpid()));
     while (sigint_handler.getGracefulQuit() == 0) {
         logger.log("Soy el printer y estoy vivo");
         sleep(3);

@@ -1,3 +1,6 @@
+#include <cstdlib>
+#include <getopt.h>
+
 #include "Util.h"
 
 using namespace std;
@@ -6,6 +9,8 @@ t_parametros Util::tomarParametros(int argc,char* argv[]) {
     int c;
     bool pendingParams = true;
     t_parametros params;
+    params.cantVentanillas = 0;
+    params.cantSellos = 0;
 
     while (pendingParams)
     {

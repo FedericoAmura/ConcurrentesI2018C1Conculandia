@@ -23,7 +23,7 @@ public:
      * quiera en el hijo para finalmente morir y retornar 0 si exito o el codigo de error correspondiente
      * */
     explicit ProcesoHijo(Logger& logger);
-    ~ProcesoHijo(); // TODO estaria bueno que sea virtual tambien
+    virtual ~ProcesoHijo();
     virtual pid_t ejecutar() = 0;
 
 protected:
