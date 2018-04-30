@@ -19,6 +19,8 @@
 #include "../Fifos/FifoEscritura.h"
 #include "../Fifos/FifoLectura.h"
 #include "../Persona/Persona.h"
+#include "../PortaSellos/PortaSellos.h"
+#include "../Sello/Sello.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -35,14 +37,16 @@ class Ventanilla : public ProcesoHijo{
 private:
     FifoLectura canalLectura;
     LockFile lockExclusivo;
+    PortaSellos portaSellos;
+
 
 public:
-    explicit Ventanilla(Logger& logger, FifoLectura& canalLectura);
+    explicit Ventanilla(Logger& logger, FifoLectura& canalLectura, PortaSellos& portaSellos);
     ~Ventanilla();
 
     pid_t ejecutar();
 
-    void iniciarAtencion(int cantidadSellos);
+    void iniciarAtencion();
 
     ssize_t leerSiguientePersona(char *buffer);
 };

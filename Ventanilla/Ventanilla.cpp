@@ -16,7 +16,14 @@ pid_t Ventanilla::ejecutar() {
 
     logger.log("Naci como Ventanilla y tengo el pid: "+to_string(getpid()));
 
-    iniciarAtencion(0);
+    logger.log("Pido un sello");
+    Sello& sello = portaSellos.getSello();
+    logger.log("Me dieron un sello");
+    sello.sellar();
+    logger.log("Voy a devolver el sello");
+    portaSellos.putSello(sello);
+    logger.log("Devolvi el sello");
+    iniciarAtencion();
 
     logger.log("Termino la tarea de la ventanilla ");
     SignalHandler::destruir();
@@ -26,9 +33,8 @@ pid_t Ventanilla::ejecutar() {
 
 /**
  * Inicia la atension de una ventanilla de aduana para recibir personas.
- * @param cantidadSellos
  */
-void Ventanilla::iniciarAtencion(int cantidadSellos) {
+void Ventanilla::iniciarAtencion() {
 
     char buffer[Persona::TAMANIO_SERIALIZADO];
 
@@ -67,8 +73,8 @@ ssize_t Ventanilla::leerSiguientePersona( char *buffer) {
 }
 
 
-Ventanilla::Ventanilla(Logger& logger, FifoLectura &canal)
-        : ProcesoHijo(logger), canalLectura(canal), lockExclusivo("/tmp/lockExclusivoFifo") {
+Ventanilla::Ventanilla(Logger& logger, FifoLectura &canal,PortaSellos& portaSellos)
+        : ProcesoHijo(logger), canalLectura(canal), lockExclusivo("/tmp/lockExclusivoFifo"), portaSellos(portaSellos) {
     logger.log("Ventanilla creado");
 };
 

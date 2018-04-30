@@ -6,6 +6,7 @@
 #include "./Util/Util.h"
 #include "Ventanilla/Ventanilla.h"
 #include "FilaEspera/FilaEspera.h"
+#include "PortaSellos/PortaSellos.h"
 
 using namespace std;
 
@@ -24,9 +25,11 @@ int main(int argc, char* argv[]) {
     FilaEspera filaEspera(logger, canalEscritura);
     filaEspera.ejecutar();
 
+    PortaSellos portaSellos(logger, params.cantSellos);
+
     vector<Ventanilla*> ventanillas;
     for (int i = 0; i < params.cantVentanillas; ++i) {
-        Ventanilla* ventanilla = new Ventanilla(logger, canalLectura);
+        Ventanilla* ventanilla = new Ventanilla(logger, canalLectura, portaSellos);
         ventanillas.push_back(ventanilla);
         ventanilla->ejecutar();
     }
@@ -58,6 +61,7 @@ int main(int argc, char* argv[]) {
         ventanilla->terminar();
         delete(ventanilla);
     }
+    portaSellos.terminar();
 
     logger.log("Finalizando oficina de aduanas de conculandia");
     return 0;
