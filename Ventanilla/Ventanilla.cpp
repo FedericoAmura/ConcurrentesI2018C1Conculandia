@@ -12,7 +12,7 @@ pid_t Ventanilla::ejecutar() {
     if (pid != 0) return pid;
 
     // siendo ventanilla, me seteo y ejecuto lo que quiero
-    SignalHandler::getInstance()->registrarHandler (SIGINT, &sigint_handler);
+    SignalHandler::getInstance()->registrarHandler(SIGINT, &sigint_handler);
 
     logger.log("Naci como Ventanilla y tengo el pid: "+to_string(getpid()));
 
@@ -23,7 +23,7 @@ pid_t Ventanilla::ejecutar() {
     logger.log("Voy a devolver el sello");
     portaSellos.putSello(sello);
     logger.log("Devolvi el sello");
-    iniciarAtencion();
+    this->iniciarAtencion();
 
     logger.log("Termino la tarea de la ventanilla");
     SignalHandler::destruir();
@@ -72,10 +72,11 @@ ssize_t Ventanilla::leerSiguientePersona(char *buffer) {
     return bytesleidos;
 }
 
-Ventanilla::Ventanilla(Logger& logger, FifoLectura &canal) :
+Ventanilla::Ventanilla(Logger& logger, FifoLectura &canal,PortaSellos& portaSellos) :
     ProcesoHijo(logger),
     canalLectura(canal),
-    lockExclusivo("/tmp/lockExclusivoFifo") {
+    lockExclusivo("/tmp/lockExclusivoFifo"),
+    portaSellos(portaSellos) {
     logger.log("Ventanilla creada");
 };
 

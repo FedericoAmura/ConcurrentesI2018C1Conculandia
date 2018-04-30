@@ -19,6 +19,8 @@ private:
     LockFile lockExclusivo;
     PortaSellos portaSellos;
 
+    void iniciarAtencion();
+
 };
 
 #endif //TP1_CONCULANDIA_VENTANILLA_H

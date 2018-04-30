@@ -11,7 +11,7 @@ pid_t FilaEspera::ejecutar() {
     if (pid != 0) return pid;
 
     // siendo fila de espera, me seteo y ejecuto lo que quiero
-    SignalHandler::getInstance()->registrarHandler (SIGINT, &sigint_handler);
+    SignalHandler::getInstance()->registrarHandler(SIGINT, &sigint_handler);
 
     logger.log("Naci como Fila de Espera y tengo el pid: "+to_string(getpid()));
 

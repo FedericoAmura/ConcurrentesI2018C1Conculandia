@@ -11,7 +11,7 @@ pid_t Printer::ejecutar() {
     if (pid != 0) return pid;
 
     // siendo printer, me seteo y ejecuto lo que quiero
-    SignalHandler::getInstance()->registrarHandler (SIGINT, &sigint_handler);
+    SignalHandler::getInstance()->registrarHandler(SIGINT, &sigint_handler);
 
     logger.log("Naci como printer y tengo el pid: "+to_string(getpid()));
     while (sigint_handler.getGracefulQuit() == 0) {
