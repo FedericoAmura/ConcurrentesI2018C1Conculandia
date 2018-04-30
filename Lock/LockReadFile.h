@@ -1,0 +1,16 @@
+//
+// Created by nestor on 30/04/18.
+//
+
+#ifndef ADUANACONCULANDIA_LOCKREADFILE_H
+#define ADUANACONCULANDIA_LOCKREADFILE_H
+
+
+
+class LockReadFile {
+
+};
+
+
+
+#endif //ADUANACONCULANDIA_LOCKREADFILE_H
