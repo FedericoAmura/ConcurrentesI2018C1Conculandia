@@ -1,10 +1,6 @@
 #ifndef CONCULANDIA_UTIL_H
 #define CONCULANDIA_UTIL_H
 
-#include <unistd.h>
-#include <getopt.h>
-#include <cstdlib>
-
 typedef struct parametros {
     int cantVentanillas;
     int cantSellos;
@@ -14,6 +10,7 @@ class Util {
 
 public:
     static t_parametros tomarParametros(int argc,char* argv[]);
+
 };
 
 

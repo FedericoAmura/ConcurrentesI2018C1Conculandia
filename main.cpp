@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
 
+#include "./FilaEspera/FilaEspera.h"
 #include "./Logger/Logger.h"
+#include "./PortaSellos/PortaSellos.h"
 #include "./Printer/Printer.h"
 #include "./Util/Util.h"
-#include "Ventanilla/Ventanilla.h"
-#include "FilaEspera/FilaEspera.h"
+#include "./Ventanilla/Ventanilla.h"
 
 using namespace std;
 
@@ -18,15 +19,17 @@ int main(int argc, char* argv[]) {
 
     logger.log("Oficina inicializada con "+to_string(params.cantSellos)+" sellos");
     static const string ARCHIVO_FIFO = "/tmp/archivo_fifo";
-    FifoLectura canalLectura( ARCHIVO_FIFO );
-    FifoEscritura canalEscritura( ARCHIVO_FIFO );
+    FifoLectura canalLectura(ARCHIVO_FIFO);
+    FifoEscritura canalEscritura(ARCHIVO_FIFO);
 
     FilaEspera filaEspera(logger, canalEscritura);
     filaEspera.ejecutar();
 
+    PortaSellos portaSellos(logger, params.cantSellos);
+
     vector<Ventanilla*> ventanillas;
     for (int i = 0; i < params.cantVentanillas; ++i) {
-        Ventanilla* ventanilla = new Ventanilla(logger, canalLectura);
+        Ventanilla* ventanilla = new Ventanilla(logger, canalLectura, portaSellos);
         ventanillas.push_back(ventanilla);
         ventanilla->ejecutar();
     }
@@ -58,6 +61,7 @@ int main(int argc, char* argv[]) {
         ventanilla->terminar();
         delete(ventanilla);
     }
+    portaSellos.terminar();
 
     logger.log("Finalizando oficina de aduanas de conculandia");
     return 0;

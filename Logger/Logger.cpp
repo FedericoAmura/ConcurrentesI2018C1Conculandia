@@ -1,16 +1,15 @@
 #include <ctime>
 
-#include "Logger.h"
+#include "./Logger.h"
 
 void Logger::log(string message) {
     if (!debug) return;
 
-    time_t timestamp = std::time(nullptr);
+    time_t timestamp = time(nullptr);
     string timeString = asctime(localtime(&timestamp));
     timeString.pop_back();
     string pid = to_string(getpid());
     string logMessage = "pid: " + pid + " (" + timeString + ") " + message + "\n";
-
 
     lock.tomarLock();
     lock.escribir(logMessage.c_str(), logMessage.length());
