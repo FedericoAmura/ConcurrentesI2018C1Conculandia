@@ -1,7 +1,7 @@
+#include "../ContadorPersonas/ContadorPersonas.h"
 #include "../Persona/Persona.h"
 #include "../Signal/SignalHandler.h"
 #include "./Ventanilla.h"
-#include "../ContadorPersonas/ContadorPersonas.h"
 
 using namespace std;
 

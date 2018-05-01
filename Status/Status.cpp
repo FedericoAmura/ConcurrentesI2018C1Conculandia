@@ -3,7 +3,7 @@
 
 #include "./Status.h"
 
-Status* Status::instance = 0;
+Status* Status::instance = nullptr;
 
 Status* Status::getInstance() {
     if (instance == nullptr) {

@@ -1,7 +1,3 @@
-//
-// Created by nestor on 30/04/18.
-//
-
 #include "Menu.h"
 
 void Menu::iniciar() {
@@ -36,17 +32,17 @@ void Menu::iniciar() {
             }
             case '2': {
                 string caracteristica;
-                cout << "Alta de caracteristica de Personas de Riesgos." << endl;
-                cout << "==============================================" << endl;
-                cout << "Describa una caracteristica y presione Enter." << endl;
+                cout << "Alta de caracteristica de Personas de Riesgos" << endl;
+                cout << "=============================================" << endl;
+                cout << "Describa una caracteristica y presione Enter" << endl;
                 cin >> caracteristica;
                 break;
             }
 
             case '3':
                 cout << "Baja de caracteristica de Personas de Riesgos" << endl;
-                cout << "==============================================" << endl;
-                cout << "Ingrese un nro de caracteristica y presione Enter." << endl;
+                cout << "=============================================" << endl;
+                cout << "Ingrese un nro de caracteristica y presione Enter" << endl;
                 cin >> input;
                 break;
             default:
@@ -56,5 +52,5 @@ void Menu::iniciar() {
     }
 }
 
-Menu::Menu(MinistroSeguridad &ministroSeguridad):ministroSeguridad(ministroSeguridad) {
-}
+Menu::Menu(MinistroSeguridad &ministroSeguridad) :
+        ministroSeguridad(ministroSeguridad) {}

@@ -1,13 +1,8 @@
-//
-// Created by lucas on 30/04/18.
-//
-
 #ifndef ADUANACONCULANDIA_CONTADORPERSONAS_H
 #define ADUANACONCULANDIA_CONTADORPERSONAS_H
 
-
-#include "../MemoriaCompartida/MemoriaCompartida.h"
 #include "../Lock/LockFile.h"
+#include "../MemoriaCompartida/MemoriaCompartida.h"
 
 typedef struct {
     int extranjerosDeportados;
@@ -17,19 +12,24 @@ typedef struct {
 } contadorPersonasStruct;
 
 class ContadorPersonas {
-    private:
-        LockFile lock;
-        MemoriaCompartida<contadorPersonasStruct> contador;
-    public:
-        ContadorPersonas();
-        void inicializar();
-        int getFileDescriptor();
-        contadorPersonasStruct getContadores();
-        void agregarExtranjeroDeportado();
-        void agregarExtranjeroIngresado();
-        void agregarResidenteIngresado();
-        void agregarResidenteOficinaPolicia();
-        ~ContadorPersonas();
+
+public:
+    void inicializar();
+    int getFileDescriptor();
+
+    contadorPersonasStruct getContadores();
+    void agregarExtranjeroDeportado();
+    void agregarExtranjeroIngresado();
+    void agregarResidenteIngresado();
+    void agregarResidenteOficinaPolicia();
+
+    ContadorPersonas();
+    ~ContadorPersonas();
+
+private:
+    LockFile lock;
+    MemoriaCompartida<contadorPersonasStruct> contador;
+
 };
 
 

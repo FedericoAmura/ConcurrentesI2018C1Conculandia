@@ -51,7 +51,7 @@ vector<Persona> FilaEspera::obtenerPersonas() {
     return personas;
 }
 
-void FilaEspera::parsearLinea(string &linea, vector<string> &campos) const {
+void FilaEspera::parsearLinea(string& linea, vector<string>& campos) const {
     string delimiter = ",";
     size_t pos = 0;
     string token;

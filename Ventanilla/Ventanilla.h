@@ -9,7 +9,7 @@
 class Ventanilla : public ProcesoHijo {
 
 public:
-    explicit Ventanilla(Logger& logger, FifoLectura& canalLectura, PortaSellos& portaSellos);
+    Ventanilla(Logger& logger, FifoLectura& canalLectura, PortaSellos& portaSellos);
     ~Ventanilla() override;
 
     int getFileDescriptor();

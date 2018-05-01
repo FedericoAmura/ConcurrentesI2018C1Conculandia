@@ -1,6 +1,4 @@
-
-#include "MinistroSeguridad.h"
-
+#include "./MinistroSeguridad.h"
 /***
  * Tamaño para el buffer del pipe menu a ministro
  * Operacion(1) + Caracteristica(100)
@@ -16,6 +14,8 @@ const int MinistroSeguridad::BUFFERSIZE_MINISTRO_MENU = 100;
 const int MinistroSeguridad::ACCION_CONSULTA = 1;
 const int MinistroSeguridad::ACCION_ALTA = 2;
 const int MinistroSeguridad::ACCION_BAJA = 3;
+
+
 
 pid_t MinistroSeguridad::ejecutar(){
     logger.log("Ejecutamos el ministro de seguridad");
@@ -90,8 +90,7 @@ void MinistroSeguridad::informarAMenuPersonasRiesgo(vector<string> &caracteristi
     }
 }
 
-void
-MinistroSeguridad::informarAMenuCantidadRegistros(vector<string> &caracteristicas) {
+void MinistroSeguridad::informarAMenuCantidadRegistros(vector<string> &caracteristicas) {
     char bufferRespuesta[BUFFERSIZE_MINISTRO_MENU];
     logger.log("Ministro: informo cantidad de caracteristicas en el listado.");
     stringstream cantidadRegistros;

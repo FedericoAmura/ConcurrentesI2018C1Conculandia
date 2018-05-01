@@ -13,7 +13,7 @@ private:
     static Sello sello;
 
 public:
-    explicit PortaSellos(Logger& logger, int cantSellos);
+    PortaSellos(Logger& logger, int cantSellos);
     ~PortaSellos();
 
     Sello& getSello();
