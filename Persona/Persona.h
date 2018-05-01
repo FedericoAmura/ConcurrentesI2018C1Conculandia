@@ -2,9 +2,7 @@
 #define TP1_CONCULANDIA_PERSONA_H
 
 #include <iostream>
-#include <string>
-
-using namespace std;
+#include "../Util/Util.h"
 
 class Persona {
 
@@ -15,7 +13,7 @@ public:
     explicit Persona(char * buffer);
     Persona(int tipoPersona, int numeroDocumento, string caracteristica);
 
-    const void* serializar();
+    string serializar();
     void deserializar(const char * buffer);
 
     int getTipoPersona() const;

@@ -65,7 +65,9 @@ void FilaEspera::inicializar() {
     canalEscritura.abrir();
     for (Persona persona : personas) {
         sleep(2);   // TODO no podemos usar sleep
-        canalEscritura.escribir(persona.serializar(), Persona::TAMANIO_SERIALIZADO);
+        char buffer[Persona::TAMANIO_SERIALIZADO];
+        strcpy(buffer, persona.serializar().c_str());
+        canalEscritura.escribir(static_cast<const void *>(buffer), Persona::TAMANIO_SERIALIZADO);
         if (sigint_handler.getGracefulQuit() == 1) {
             break;
         }

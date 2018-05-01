@@ -6,18 +6,20 @@
 
 using namespace std;
 
-int Persona::TAMANIO_SERIALIZADO = 15;
+int Persona::TAMANIO_SERIALIZADO = 115;
 
-const void* Persona::serializar() {
+string Persona::serializar() {
     stringstream serializado;
-    serializado << setw(4) << this->getTipoPersona() << setw(11) << this->getNumeroDocumento();
-    return static_cast<const void*>(serializado.str().c_str());
+    serializado << setw(4) << this->getTipoPersona() << setw(11) << this->getNumeroDocumento()<<setw(100)<<this->getCaracteristica();
+    return serializado.str();
 }
 
 void Persona::deserializar(const char * buffer) {
     string persona = buffer;
     this->setTipoPersona(atoi(persona.substr(0,4).c_str()));
     this->setNumeroDocumento(atoi(persona.substr(4,11).c_str()));
+    this->setCaracteristica(Util::trim(persona.substr(15,100)));
+
 }
 
 int Persona::getTipoPersona() const {
