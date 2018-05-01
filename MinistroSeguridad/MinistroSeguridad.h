@@ -1,7 +1,3 @@
-//
-// Created by nestor on 30/04/18.
-//
-
 #ifndef ADUANACONCULANDIA_MINISTROSEGURIDAD_H
 #define ADUANACONCULANDIA_MINISTROSEGURIDAD_H
 
@@ -9,18 +5,23 @@
 #include "../Signal/SignalHandler.h"
 #include "../Signal/SIGINT_Handler.h"
 #include "../Lock/LockReadFile.h"
+#include "../Pipes/Pipe.h"
 #include <vector>
 
-class MinistroSeguridad : public ProcesoHijo {
-private:
+#include "../ProcesoHijo/ProcesoHijo.h"
 
+class MinistroSeguridad : public ProcesoHijo {
+
+private:
     LockReadFile archivoRiesgoLectura;
+    Pipe canalMenuMinistro;
+    Pipe canalMinistroMenu;
 
 public:
-    explicit MinistroSeguridad(Logger& logger);
-    ~MinistroSeguridad();
+    explicit MinistroSeguridad(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu);
+    ~MinistroSeguridad() override;
 
-    pid_t ejecutar();
+    pid_t ejecutar() override;
 
     /**
      * Permite al usuario dar de alta una caracteristica
@@ -39,9 +40,8 @@ public:
      * Permite al usuario consultar el listado de caracteristicas.
      * @return ventor<string> Listado de caracteristicas
      */
-    std::vector<string> consultaUsuarioCaracteristicas();
+    vector<string> consultaUsuarioCaracteristicas();
 
 };
-
 
 #endif //ADUANACONCULANDIA_MINISTROSEGURIDAD_H

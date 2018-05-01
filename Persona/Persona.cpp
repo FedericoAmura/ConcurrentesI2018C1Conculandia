@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int Persona::TAMANIO_SERIALIZADO = 15;
+int Persona::TAMANIO_SERIALIZADO = 60;
 
 const void* Persona::serializar() {
     stringstream serializado;
@@ -37,7 +37,7 @@ void Persona::setNumeroDocumento(int numeroDocumento) {
     this->numeroDocumento = numeroDocumento;
 }
 
-Persona::Persona(int tipoPersona, int numeroDocumento) : tipoPersona(tipoPersona), numeroDocumento(numeroDocumento) {}
+Persona::Persona(int tipoPersona, int numeroDocumento, char * caracteristica) : tipoPersona(tipoPersona), numeroDocumento(numeroDocumento), caracteristica(caracteristica) {}
 Persona::Persona(char * buffer) {
     deserializar(buffer);
 }

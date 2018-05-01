@@ -7,8 +7,9 @@
 #include "./Printer/Printer.h"
 #include "./Util/Util.h"
 #include "./Ventanilla/Ventanilla.h"
-#include "MinistroSeguridad/MinistroSeguridad.h"
-#include "Menu/Menu.h"
+#include "./Pipes/Pipe.h"
+#include "./MinistroSeguridad/MinistroSeguridad.h"
+#include "./Menu/Menu.h"
 
 void terminarVentanillas(const t_parametros &params, vector<Ventanilla *> &ventanillas);
 
@@ -38,9 +39,12 @@ int main(int argc, char* argv[]) {
     }
     logger.log("Oficina inicializada con "+to_string(params.cantVentanillas)+" ventanillas");
 
-    MinistroSeguridad ministroSeguridad(logger);
-    ministroSeguridad.ejecutar();
+    Pipe canalIda;
+    Pipe canalVuelta;
+    MinistroSeguridad ministroSeguridad(logger, canalIda, canalVuelta);
+    //ministroSeguridad.ejecutar();
     logger.log("Ministro de seguridad inicializado");
+
 
     Menu menu(ministroSeguridad);
     menu.iniciar();
@@ -48,7 +52,7 @@ int main(int argc, char* argv[]) {
     filaEspera.terminar();
     terminarVentanillas(params, ventanillas);
     portaSellos.terminar();
-    ministroSeguridad.terminar();
+    //ministroSeguridad.terminar();
     logger.log("Finalizando oficina de aduanas de conculandia");
     return 0;
 }

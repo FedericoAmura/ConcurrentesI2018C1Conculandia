@@ -67,7 +67,9 @@ void Ventanilla::iniciarAtencion() {
 
 ssize_t Ventanilla::leerSiguientePersona(char *buffer) {
     lockExclusivo.tomarLock();
+    logger.log("TomoLock");
     ssize_t bytesleidos = canalLectura.leer(static_cast<void*>(buffer), Persona::TAMANIO_SERIALIZADO);
+    logger.log("leei");
     lockExclusivo.liberarLock();
     return bytesleidos;
 }

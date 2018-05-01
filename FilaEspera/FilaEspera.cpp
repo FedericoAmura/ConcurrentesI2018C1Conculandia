@@ -28,11 +28,12 @@ vector<Persona> FilaEspera::obtenerPersonas() {
     FILE* fp;
     int numeroDocumento;
     int tipoDocumento;
+    char caracteristica[45];
 
     fp = fopen("personas.csv", "r");
     if (fp != nullptr) {
-        while(fscanf(fp, "%d,%d\n", &tipoDocumento, &numeroDocumento) != EOF) {
-            Persona persona(tipoDocumento, numeroDocumento);
+        while(fscanf(fp, "%d,%d, %s\n", &tipoDocumento, &numeroDocumento, caracteristica) != EOF) {
+            Persona persona(tipoDocumento, numeroDocumento, caracteristica);
             personas.push_back(persona);
         }
         fclose(fp);

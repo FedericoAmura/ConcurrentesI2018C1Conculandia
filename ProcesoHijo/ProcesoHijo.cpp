@@ -1,7 +1,7 @@
 #include <csignal>
 #include <iostream>
 
-#include "ProcesoHijo.h"
+#include "./ProcesoHijo.h"
 #include "../Signal/SignalHandler.h"
 
 pid_t ProcesoHijo::getProcessId() {

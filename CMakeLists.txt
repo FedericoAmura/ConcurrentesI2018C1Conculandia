@@ -21,5 +21,6 @@ add_subdirectory("${PROJECT_SOURCE_DIR}/Semaforo")
 add_subdirectory("${PROJECT_SOURCE_DIR}/PortaSellos")
 add_subdirectory("${PROJECT_SOURCE_DIR}/Sello")
 add_subdirectory("${PROJECT_SOURCE_DIR}/Menu")
+add_subdirectory("${PROJECT_SOURCE_DIR}/Pipes")
 
 add_executable(aduanaconculandia ${SOURCE} ${HEADERS})
