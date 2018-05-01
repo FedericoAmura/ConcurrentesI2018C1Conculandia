@@ -8,16 +8,38 @@
 
 class Menu {
 
-private:
-    MinistroSeguridad ministroSeguridad;
-
 public:
-    explicit Menu(MinistroSeguridad &ministroSeguridad);
-
+    Menu(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu);
     /**
      * Inicia el menu interactivo para el usuario.
      */
     void iniciar();
+
+private:
+
+    Logger& logger;
+    Pipe canalMenuMinistro;
+    Pipe canalMinistroMenu;
+
+    /***
+     * Permite al usuario consultar el listado de personas de riesgo.
+     * @return ventor<string> Listado de caracteristicas
+     */
+    vector<string> consultarPersonasRiesgoAMinistro();
+
+    /**
+     * Permite al usuario dar de alta una caracteristica
+     * @param caracteristica
+     */
+    int altaUsuarioCaracteristica(string caracteristica);
+
+    /**
+     * Permite al usuario dar de baja una caracteristica
+     * @param numeroRegistroCaracteristica
+     * @return
+     */
+    int bajaUsuarioCaracteristica(int numeroRegistroCaracteristica);
+
 };
 
 

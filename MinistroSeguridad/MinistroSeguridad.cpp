@@ -122,43 +122,6 @@ void MinistroSeguridad::leerTodoArchivoRiesgo(vector<string> &caracteristicas) c
     }
 }
 
-int MinistroSeguridad::altaUsuarioCaracteristica(string caracteristica) {
-}
-
-int MinistroSeguridad::bajaUsuarioCaracteristica(int numeroRegistroCaracteristica) {
-}
-
-std::vector<string> MinistroSeguridad::consultaUsuarioCaracteristicas() {
-    string itemCaracteristica;
-    char bufferEnvio[BUFFERSIZE_MENU_MINISTRO];
-    char bufferVuelta[BUFFERSIZE_MINISTRO_MENU];
-    vector<string> caracteristicas;
-    stringstream serializado;
-    serializado<<1<<setw(BUFFERSIZE_MENU_MINISTRO)<<endl;
-    strcpy(bufferEnvio, serializado.str().c_str());
-
-    canalMenuMinistro.escribir ( static_cast<const void*>(bufferEnvio), BUFFERSIZE_MENU_MINISTRO );
-
-    // Recibimos el listado del ministro.
-    ssize_t bytesLeidos = canalMinistroMenu.leer ( static_cast<void*>(bufferVuelta), BUFFERSIZE_MINISTRO_MENU );
-    if (bytesLeidos > 0) {
-        string cantidadRegistros = bufferVuelta;
-        logger.log("Menu: Recibimos del ministro cant registros: " + Util::trim(cantidadRegistros));
-        int cantidad = atoi(Util::trim(cantidadRegistros).c_str());
-        if ( cantidad > 0 ) {
-            for (int i = 0; i < cantidad; i++) {
-                string caracteristica = bufferVuelta;
-                ssize_t bytesLeidos = canalMinistroMenu.leer ( static_cast<void*>(bufferVuelta), BUFFERSIZE_MINISTRO_MENU );
-                itemCaracteristica = Util::trim(bufferVuelta);
-                logger.log("Menu: Recibimos del ministro : " + itemCaracteristica);
-                caracteristicas.push_back(itemCaracteristica);
-            }
-        }
-    }
-
-    return caracteristicas;
-}
-
 MinistroSeguridad::MinistroSeguridad(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu) :
         ProcesoHijo(logger),
         archivoRiesgoLectura("personasriesgo.txt"),

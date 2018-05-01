@@ -71,7 +71,7 @@ int main(int argc, char* argv[]) {
     logger.log("Ministro de seguridad inicializado");
 
 
-    Menu menu(ministroSeguridad);
+    Menu menu(logger, canalIda, canalVuelta);
     menu.iniciar();
 
     filaEspera.terminar();
