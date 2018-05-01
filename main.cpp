@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
     Pipe canalIda;
     Pipe canalVuelta;
     MinistroSeguridad ministroSeguridad(logger, canalIda, canalVuelta);
-    //ministroSeguridad.ejecutar();
+    ministroSeguridad.ejecutar();
     logger.log("Ministro de seguridad inicializado");
 
 
@@ -52,7 +52,7 @@ int main(int argc, char* argv[]) {
     filaEspera.terminar();
     terminarVentanillas(params, ventanillas);
     portaSellos.terminar();
-    //ministroSeguridad.terminar();
+    ministroSeguridad.terminar();
     logger.log("Finalizando oficina de aduanas de conculandia");
     return 0;
 }

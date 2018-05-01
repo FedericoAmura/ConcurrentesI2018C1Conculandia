@@ -32,6 +32,10 @@ ssize_t LockReadFile ::leer(void *buffer, const ssize_t buffsize) const {
     return read( this->fd, buffer,buffsize );
 }
 
+ssize_t LockReadFile ::leer(char *buffer, const ssize_t buffsize) const {
+    return read( this->fd, buffer,buffsize );
+}
+
 LockReadFile :: ~LockReadFile () {
     close ( this->fd );
 }

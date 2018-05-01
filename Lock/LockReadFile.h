@@ -27,6 +27,7 @@ public:
     int liberarLock ();
     void rebobinar();
     ssize_t leer (void* buffer,const ssize_t buffsize ) const;
+    ssize_t leer (char* buffer,const ssize_t buffsize ) const;
 
 };
 

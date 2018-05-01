@@ -22,6 +22,16 @@ void Menu::iniciar() {
             case '1':
             {
                 cout << "Listado de caracteristicas" << endl;
+                vector<string> listado = ministroSeguridad.consultaUsuarioCaracteristicas();
+                if ( listado.size() > 0 ) {
+                    int contador = 0;
+                    for (auto &&caracteristica  : listado) {
+                        cout << contador <<" " << caracteristica << endl;
+                        contador++;
+                    }
+                } else {
+                    cout << "Listado de riesgo de personas vacio." << endl;
+                }
                 break;
             }
             case '2': {

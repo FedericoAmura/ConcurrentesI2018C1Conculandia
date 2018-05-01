@@ -6,18 +6,18 @@
 #include "../Signal/SIGINT_Handler.h"
 #include "../Lock/LockReadFile.h"
 #include "../Pipes/Pipe.h"
+#include "../Util/Util.h"
 #include <vector>
-
-#include "../ProcesoHijo/ProcesoHijo.h"
+#include <iomanip>
+#include <sstream>
 
 class MinistroSeguridad : public ProcesoHijo {
 
-private:
-    LockReadFile archivoRiesgoLectura;
-    Pipe canalMenuMinistro;
-    Pipe canalMinistroMenu;
-
 public:
+
+    static const int BUFFERSIZE_MENU_MINISTRO;
+    static const int BUFFERSIZE_MINISTRO_MENU;
+
     explicit MinistroSeguridad(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu);
     ~MinistroSeguridad() override;
 
@@ -42,6 +42,26 @@ public:
      */
     vector<string> consultaUsuarioCaracteristicas();
 
+
+private:
+
+    LockReadFile archivoRiesgoLectura;
+    Pipe canalMenuMinistro;
+    Pipe canalMinistroMenu;
+
+    void leerTodoArchivoRiesgo(vector<string> &caracteristicas) const;
+
+    void iniciar();
+
+    void informarAMenuCantidadRegistros(vector<string> &caracteristicas);
+
+    void informarAMenuPersonasRiesgo(vector<string> &caracteristicas);
+
+    void informarAMenuAccionIncorrecta();
+
+    static const int ACCION_CONSULTA;
+    static const int ACCION_ALTA;
+    static const int ACCION_BAJA;
 };
 
 #endif //ADUANACONCULANDIA_MINISTROSEGURIDAD_H
