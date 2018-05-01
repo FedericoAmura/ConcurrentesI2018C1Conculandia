@@ -5,7 +5,8 @@
 #include "MinistroSeguridad.h"
 
 
-MinistroSeguridad::MinistroSeguridad(Logger& logger) : ProcesoHijo(logger){
+MinistroSeguridad::MinistroSeguridad(Logger& logger)
+        : ProcesoHijo(logger), archivoRiesgoLectura("personasriesgo.txt"){
 }
 
 MinistroSeguridad::~MinistroSeguridad(){

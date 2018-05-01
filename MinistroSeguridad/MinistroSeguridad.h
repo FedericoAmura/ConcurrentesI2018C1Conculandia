@@ -8,10 +8,13 @@
 #include "../ProcesoHijo/ProcesoHijo.h"
 #include "../Signal/SignalHandler.h"
 #include "../Signal/SIGINT_Handler.h"
+#include "../Lock/LockReadFile.h"
 #include <vector>
 
 class MinistroSeguridad : public ProcesoHijo {
 private:
+
+    LockReadFile archivoRiesgoLectura;
 
 public:
     explicit MinistroSeguridad(Logger& logger);
