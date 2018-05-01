@@ -1,5 +1,4 @@
-#include "MinistroSeguridad.h"
-
+#include "./MinistroSeguridad.h"
 
 pid_t MinistroSeguridad::ejecutar(){
     logger.log("Ejecutamos el ministro de seguridad");
@@ -25,12 +24,14 @@ int MinistroSeguridad::altaUsuarioCaracteristica(string caracteristica) {
 int MinistroSeguridad::bajaUsuarioCaracteristica(int numeroRegistroCaracteristica) {
 }
 
-std::vector<string> MinistroSeguridad::consultaUsuarioCaracteristicas() {
-
+vector<string> MinistroSeguridad::consultaUsuarioCaracteristicas() {
 }
 
 MinistroSeguridad::MinistroSeguridad(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu) :
-        ProcesoHijo(logger), archivoRiesgoLectura("personasriesgo.txt"), canalMenuMinistro(canalMenuMinistro), canalMinistroMenu(canalMinistroMenu) {}
+        ProcesoHijo(logger),
+        archivoRiesgoLectura("personasriesgo.txt"),
+        canalMenuMinistro(canalMenuMinistro),
+        canalMinistroMenu(canalMinistroMenu) {}
 
 MinistroSeguridad::~MinistroSeguridad() = default;
 

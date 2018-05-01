@@ -1,11 +1,5 @@
-//
-// Created by lucas on 30/04/18.
-//
-
 #define FILE_LOCK "/bin/bash"
 #define FILE_MEM "/bin/cat"
-
-
 
 #include "ContadorPersonas.h"
 
@@ -51,8 +45,7 @@ void ContadorPersonas::agregarResidenteOficinaPolicia() {
 
 ContadorPersonas::ContadorPersonas():
         lock(FILE_LOCK),
-        contador(FILE_MEM, 'R') {
-}
+        contador(FILE_MEM, 'R') {}
 
 contadorPersonasStruct ContadorPersonas::getContadores() {
     contadorPersonasStruct c;

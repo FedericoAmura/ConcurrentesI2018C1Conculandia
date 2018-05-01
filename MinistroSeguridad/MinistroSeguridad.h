@@ -1,14 +1,13 @@
 #ifndef ADUANACONCULANDIA_MINISTROSEGURIDAD_H
 #define ADUANACONCULANDIA_MINISTROSEGURIDAD_H
 
-#include "../ProcesoHijo/ProcesoHijo.h"
-#include "../Signal/SignalHandler.h"
-#include "../Signal/SIGINT_Handler.h"
-#include "../Lock/LockReadFile.h"
-#include "../Pipes/Pipe.h"
 #include <vector>
 
+#include "../Lock/LockReadFile.h"
+#include "../Pipes/Pipe.h"
 #include "../ProcesoHijo/ProcesoHijo.h"
+#include "../Signal/SIGINT_Handler.h"
+#include "../Signal/SignalHandler.h"
 
 class MinistroSeguridad : public ProcesoHijo {
 
@@ -18,7 +17,7 @@ private:
     Pipe canalMinistroMenu;
 
 public:
-    explicit MinistroSeguridad(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu);
+    MinistroSeguridad(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu);
     ~MinistroSeguridad() override;
 
     pid_t ejecutar() override;
