@@ -22,10 +22,6 @@ void Menu::iniciar() {
             case '1':
             {
                 cout << "Listado de caracteristicas" << endl;
-                vector<string> listado = ministroSeguridad.consultaUsuarioCaracteristicas();
-                for (auto &&caracteristica  : listado) {
-                    cout << caracteristica << endl;
-                }
                 break;
             }
             case '2': {

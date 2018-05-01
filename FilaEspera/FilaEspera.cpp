@@ -26,15 +26,18 @@ pid_t FilaEspera::ejecutar() {
 vector<Persona> FilaEspera::obtenerPersonas() {
     vector<Persona> personas;
     FILE* fp;
-    int numeroDocumento;
-    int tipoDocumento;
-    char caracteristica[45];
-
+    char buffer[100];
     fp = fopen("personas.csv", "r");
     if (fp != nullptr) {
-        while(fscanf(fp, "%d,%d, %s\n", &tipoDocumento, &numeroDocumento, caracteristica) != EOF) {
-            Persona persona(tipoDocumento, numeroDocumento, caracteristica);
+        while(fgets(buffer, 100, fp) != nullptr) {
+            string linea= buffer;
+            vector<string> campos;
+            this->parsearLinea(linea, campos);
+            Persona persona(stoi(campos.at(0)), stoi(campos.at(1)), campos.at(2));
             personas.push_back(persona);
+            if (feof(fp)) {
+                break;
+            }
         }
         fclose(fp);
     } else {
@@ -42,6 +45,18 @@ vector<Persona> FilaEspera::obtenerPersonas() {
     }
 
     return personas;
+}
+
+void FilaEspera::parsearLinea(string &linea, vector<string> &campos) const {
+    string delimiter = ",";
+    size_t pos = 0;
+    string token;
+    while ((pos = linea.find(delimiter)) != std::string::npos) {
+        token = linea.substr(0, pos);
+        campos.push_back(token);
+        linea.erase(0, pos + delimiter.length());
+    }
+    campos.push_back(linea);
 }
 
 

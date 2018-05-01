@@ -19,6 +19,8 @@ public:
 
     pid_t ejecutar() override;
     void inicializar();
+
+    void parsearLinea(string &linea, vector<string> &campos) const;
 };
 
 #endif //TP1_CONCULANDIA_FILAESPERA_H

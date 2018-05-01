@@ -13,7 +13,7 @@ public:
 
     Persona();
     explicit Persona(char * buffer);
-    Persona(int tipoPersona, int numeroDocumento, char * caracteristica);
+    Persona(int tipoPersona, int numeroDocumento, string caracteristica);
 
     const void* serializar();
     void deserializar(const char * buffer);
@@ -24,7 +24,7 @@ public:
     int getNumeroDocumento() const;
     void setNumeroDocumento(int numeroDocumento);
 
-    const string &getCaracteristica() const;
+    string getCaracteristica();
     void setCaracteristica(const string &caracteristica);
 
 private:

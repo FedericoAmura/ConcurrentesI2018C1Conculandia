@@ -16,15 +16,16 @@ pid_t Ventanilla::ejecutar() {
 
     logger.log("Naci como Ventanilla y tengo el pid: "+to_string(getpid()));
 
-    logger.log("Pido un sello");
+    /*logger.log("Pido un sello");
     Sello& sello = portaSellos.getSello();
     logger.log("Me dieron un sello");
     sello.sellar();
     logger.log("Voy a devolver el sello");
     portaSellos.putSello(sello);
     logger.log("Devolvi el sello");
-    this->iniciarAtencion();
 
+*/
+    this->iniciarAtencion();
     logger.log("Termino la tarea de la ventanilla");
     SignalHandler::destruir();
 
@@ -45,7 +46,7 @@ void Ventanilla::iniciarAtencion() {
     while (bytesleidos > 0 && sigint_handler.getGracefulQuit() == 0) {
         if (bytesleidos == Persona::TAMANIO_SERIALIZADO) {
             Persona persona(buffer);
-            logger.log("Atendiendo a DNI: " + to_string(persona.getNumeroDocumento()));
+            logger.log("Atendiendo a DNI: " + to_string(persona.getNumeroDocumento()) + " Caracteristica: " + persona.getCaracteristica());
         } else if (bytesleidos > 0){
             logger.log("La cantidad de bytes leidos no coincide ");
         }
@@ -67,10 +68,11 @@ void Ventanilla::iniciarAtencion() {
 
 ssize_t Ventanilla::leerSiguientePersona(char *buffer) {
     lockExclusivo.tomarLock();
-    logger.log("TomoLock");
     ssize_t bytesleidos = canalLectura.leer(static_cast<void*>(buffer), Persona::TAMANIO_SERIALIZADO);
-    logger.log("leei");
     lockExclusivo.liberarLock();
+    if (bytesleidos != Persona::TAMANIO_SERIALIZADO) {
+        logger.log("Error al leer la siguiente personas en la fifo ");
+    }
     return bytesleidos;
 }
 
