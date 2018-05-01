@@ -9,6 +9,10 @@ LockFile :: LockFile ( const std::string nombre ) {
 	this->fd = open ( this->nombre.c_str(),O_CREAT|O_TRUNC|O_WRONLY,0777 );
 }
 
+int LockFile::getFileDescriptor() {
+	return this->fd;
+}
+
 int LockFile :: tomarLock () {
 	this->fl.l_type = F_WRLCK;
 	return fcntl ( this->fd,F_SETLKW,&(this->fl) );

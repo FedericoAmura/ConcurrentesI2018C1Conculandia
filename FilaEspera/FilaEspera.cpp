@@ -3,6 +3,10 @@
 
 using namespace std;
 
+int FilaEspera::getFileDescriptor() {
+    return this->canalEscritura.getFileDescriptor();
+}
+
 pid_t FilaEspera::ejecutar() {
     logger.log("Ejecutamos la fila de espera");
     pid = fork();

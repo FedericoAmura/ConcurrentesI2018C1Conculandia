@@ -1,8 +1,13 @@
 #include "../Persona/Persona.h"
 #include "../Signal/SignalHandler.h"
 #include "./Ventanilla.h"
+#include "../ContadorPersonas/ContadorPersonas.h"
 
 using namespace std;
+
+int Ventanilla::getFileDescriptor() {
+    return lockExclusivo.getFileDescriptor();
+}
 
 pid_t Ventanilla::ejecutar() {
     logger.log("Ejecutamos una ventanilla");
@@ -37,6 +42,7 @@ pid_t Ventanilla::ejecutar() {
  */
 void Ventanilla::iniciarAtencion() {
 
+
     char buffer[Persona::TAMANIO_SERIALIZADO];
 
     canalLectura.abrir();
@@ -50,6 +56,29 @@ void Ventanilla::iniciarAtencion() {
         } else if (bytesleidos > 0){
             logger.log("La cantidad de bytes leidos no coincide ");
         }
+/*
+        contadorPersonasStruct c;
+        int op = getpid() % 4;
+        switch (op) {
+            case 0:
+                contadorPersonas.agregarResidenteIngresado();
+                break;
+            case 1:
+                contadorPersonas.agregarResidenteOficinaPolicia();
+                break;
+            case 2:
+                contadorPersonas.agregarExtranjeroIngresado();
+                break;
+            case 3:
+                contadorPersonas.agregarExtranjeroDeportado();
+
+        }
+        c = contadorPersonas.getContadores();
+        logger.log("Residentes Ingresados: " + to_string(c.residentesIngresados));
+        logger.log("Residentes a oficina de Policia: " + to_string(c.residentesOficinaPolicia));
+        logger.log("Extranjeros Ingresados: " + to_string(c.extranjerosIngresados));
+        logger.log("Extranjeros Deportados: " + to_string(c.extranjerosDeportados));
+*/
         bytesleidos = leerSiguientePersona(buffer);
     }
 
@@ -80,7 +109,8 @@ Ventanilla::Ventanilla(Logger& logger, FifoLectura &canal,PortaSellos& portaSell
     ProcesoHijo(logger),
     canalLectura(canal),
     lockExclusivo("/tmp/lockExclusivoFifo"),
-    portaSellos(portaSellos) {
+    portaSellos(portaSellos),
+    contadorPersonas() {
     logger.log("Ventanilla creada");
 };
 

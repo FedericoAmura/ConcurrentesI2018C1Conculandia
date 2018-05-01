@@ -4,6 +4,7 @@
 #include "../Fifos/FifoLectura.h"
 #include "../PortaSellos/PortaSellos.h"
 #include "../ProcesoHijo/ProcesoHijo.h"
+#include "../ContadorPersonas/ContadorPersonas.h"
 
 class Ventanilla : public ProcesoHijo {
 
@@ -11,6 +12,7 @@ public:
     explicit Ventanilla(Logger& logger, FifoLectura& canalLectura, PortaSellos& portaSellos);
     ~Ventanilla() override;
 
+    int getFileDescriptor();
     pid_t ejecutar() override;
     ssize_t leerSiguientePersona(char *buffer);
 
@@ -18,6 +20,7 @@ private:
     FifoLectura canalLectura;
     LockFile lockExclusivo;
     PortaSellos portaSellos;
+    ContadorPersonas contadorPersonas;
 
     void iniciarAtencion();
 

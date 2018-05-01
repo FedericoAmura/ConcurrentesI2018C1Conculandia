@@ -7,6 +7,10 @@ Fifo::Fifo(const std::string nombre) : nombre(nombre), fd(-1) {
 Fifo::~Fifo() {
 }
 
+int Fifo::getFileDescriptor() {
+	return this->fd;
+}
+
 void Fifo::cerrar() {
 	close ( fd );
 	fd = -1;
