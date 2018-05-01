@@ -21,8 +21,9 @@ class ContadorPersonas {
         LockFile lock;
         MemoriaCompartida<contadorPersonasStruct> contador;
     public:
-        explicit ContadorPersonas();
+        ContadorPersonas();
         void inicializar();
+        int getFileDescriptor();
         contadorPersonasStruct getContadores();
         void agregarExtranjeroDeportado();
         void agregarExtranjeroIngresado();

@@ -5,6 +5,10 @@
 
 using namespace std;
 
+int Ventanilla::getFileDescriptor() {
+    return lockExclusivo.getFileDescriptor();
+}
+
 pid_t Ventanilla::ejecutar() {
     logger.log("Ejecutamos una ventanilla");
     pid = fork();

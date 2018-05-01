@@ -2,6 +2,10 @@
 
 #include "./Logger.h"
 
+int Logger::getFileDescriptor() {
+    return lock.getFileDescriptor();
+}
+
 void Logger::log(string message) {
     if (!debug) return;
 

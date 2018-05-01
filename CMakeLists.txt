@@ -24,5 +24,6 @@ add_subdirectory("${PROJECT_SOURCE_DIR}/Menu")
 add_subdirectory("${PROJECT_SOURCE_DIR}/Pipes")
 add_subdirectory("${PROJECT_SOURCE_DIR}/ContadorPersonas")
 add_subdirectory("${PROJECT_SOURCE_DIR}/MemoriaCompartida")
+add_subdirectory("${PROJECT_SOURCE_DIR}/Status")
 
 add_executable(aduanaconculandia ${SOURCE} ${HEADERS})

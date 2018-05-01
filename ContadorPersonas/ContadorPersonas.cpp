@@ -72,4 +72,8 @@ void ContadorPersonas::inicializar() {
     c.extranjerosIngresados = 0;
 }
 
+int ContadorPersonas::getFileDescriptor() {
+    return lock.getFileDescriptor();
+}
+
 ContadorPersonas::~ContadorPersonas() = default;

@@ -12,6 +12,7 @@ public:
     explicit Ventanilla(Logger& logger, FifoLectura& canalLectura, PortaSellos& portaSellos);
     ~Ventanilla() override;
 
+    int getFileDescriptor();
     pid_t ejecutar() override;
     ssize_t leerSiguientePersona(char *buffer);
 

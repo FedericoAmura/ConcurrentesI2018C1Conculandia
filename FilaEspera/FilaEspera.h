@@ -17,6 +17,7 @@ public:
     explicit FilaEspera(Logger& logger, FifoEscritura& canalEscritura);
     ~FilaEspera() override;
 
+    int getFileDescriptor();
     pid_t ejecutar() override;
     void inicializar();
 
