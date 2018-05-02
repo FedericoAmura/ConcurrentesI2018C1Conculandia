@@ -16,6 +16,8 @@ public:
 
     static string trim(const string& str);
 
+    static bool esNumerico(const string& str);
+
 };
 
 

@@ -46,6 +46,9 @@ private:
 
     int escribirNuevaCaracteristica(string caracteristica);
 
+    int eliminarCaracteristica(string nroCaracteristica);
+
+
 
 };
 

@@ -65,3 +65,15 @@ string Util::trim(const string& str) {
     size_t last = str.find_last_not_of(' ');
     return str.substr(first, (last - first + 1));
 }
+
+bool Util::esNumerico(const string& str){
+
+    int len = str.length();
+    for (int i = 0; i < len; i++) {
+        if (int(str[i])<48 || int(str[i]) > 57) {
+            return false;
+        }
+    }
+
+    return true;
+}

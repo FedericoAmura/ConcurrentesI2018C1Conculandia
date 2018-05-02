@@ -60,7 +60,8 @@ void MinistroSeguridad::iniciar() {
                 logger.log("Alta: " + Util::trim(mensaje.substr(1,100)));
                 this->escribirNuevaCaracteristica(Util::trim(mensaje.substr(1,100)));
             } else if (accionRecibida == ACCION_BAJA) {
-                logger.log("Baja.");
+                logger.log("Baja: " + Util::trim(mensaje.substr(1,100)));
+                this->eliminarCaracteristica(Util::trim(mensaje.substr(1,100)));
             } else {
                 informarAMenuAccionIncorrecta();
             }
@@ -97,7 +98,7 @@ void MinistroSeguridad::informarAMenuCantidadRegistros(vector<string> &caracteri
     stringstream cantidadRegistros;
     cantidadRegistros<<setw(BUFFERSIZE_MINISTRO_MENU)<<caracteristicas.size();
     strcpy(bufferRespuesta, cantidadRegistros.str().c_str());
-    logger.log("Ministro: Mando logintud." + cantidadRegistros.str());
+    logger.log("Ministro: Mando longintud." + cantidadRegistros.str());
     canalMinistroMenu.escribir(static_cast<const void*>(bufferRespuesta), BUFFERSIZE_MINISTRO_MENU);
 }
 
@@ -130,8 +131,35 @@ int MinistroSeguridad::escribirNuevaCaracteristica(string caracteristica) {
     archivoRiesgoEscritura.tomarLock();
     caracteristica = caracteristica + "\n";
     bytesEscritos = archivoRiesgoEscritura.escribir(caracteristica.c_str(), caracteristica.length());
+    if (bytesEscritos == -1) {
+        logger.log("Ministro: ERROR escribiendo en el archivo de riesgo de personas");
+    }
     archivoRiesgoEscritura.liberarLock();
 }
+
+int MinistroSeguridad::eliminarCaracteristica(string nroCaracteristica) {
+    logger.log("Ministro: Eliminando numero de caracteristia" + nroCaracteristica);
+
+    int registroAEliminar = atoi(nroCaracteristica.c_str());
+    int contadorRegistro = 0;
+    vector<string> caracteristicas;
+    leerTodoArchivoRiesgo(caracteristicas);
+    archivoRiesgoEscritura.tomarLock();
+    ftruncate(archivoRiesgoEscritura.getFileDescriptor(), 0);
+    for (auto &&caracteristica : caracteristicas) {
+        if (contadorRegistro != registroAEliminar) {
+            caracteristica = caracteristica + "\n";
+            ssize_t bytesEscritos = archivoRiesgoEscritura.escribir(caracteristica.c_str(), caracteristica.length());
+            if (bytesEscritos == -1) {
+                logger.log("Ministro: ERROR escribiendo en el archivo de riesgo de personas");
+            }
+        }
+        contadorRegistro++;
+    }
+    archivoRiesgoEscritura.liberarLock();
+}
+
+
 
 MinistroSeguridad::MinistroSeguridad(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu) :
         ProcesoHijo(logger),

@@ -54,12 +54,29 @@ void Menu::iniciar() {
                 break;
             }
 
-            case '3':
-                cout << "Baja de caracteristica de Personas de Riesgos" << endl;
-                cout << "=============================================" << endl;
-                cout << "Ingrese un nro de caracteristica y presione Enter" << endl;
-                cin >> input;
+            case '3': {
+                string nroCaracteristica;
+                bool ingregoCorrecto = false;
+                while (!ingregoCorrecto) {
+                    cout << "Baja de caracteristica de Personas de Riesgos" << endl;
+                    cout << "=============================================" << endl;
+                    cout << "Ingrese un nro de caracteristica y presione Enter" << endl;
+                    cin.ignore();
+                    getline(cin, nroCaracteristica, '\n');
+
+                    if (nroCaracteristica.size() > 100) {
+                        cout << "El numero de caracterisiticas es muy grande" << endl;
+                        ingregoCorrecto = false;
+                    } else if (!Util::esNumerico(nroCaracteristica)) {
+                        cout << "El valor ingresado no es numerico" << endl;
+                        ingregoCorrecto = false;
+                    } else {
+                        ingregoCorrecto = true;
+                    }
+                }
+                this->bajaUsuarioCaracteristica(atoi(nroCaracteristica.c_str()));
                 break;
+            }
             default:
                 cout << "Opcion no reconocida" << endl;
                 break;
@@ -119,7 +136,7 @@ int Menu::altaUsuarioCaracteristica(string caracteristica) {
  * @return
  */
 int Menu::bajaUsuarioCaracteristica(int numeroRegistroCaracteristica) {
-
+    this->enviarAMinistro(MinistroSeguridad::ACCION_BAJA, to_string(numeroRegistroCaracteristica));
 }
 
 Menu::Menu(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu) :
