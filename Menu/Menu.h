@@ -5,11 +5,12 @@
 #include <string>
 
 #include "../MinistroSeguridad/MinistroSeguridad.h"
+#include "../ContadorPersonas/ContadorPersonas.h"
 
 class Menu {
 
 public:
-    Menu(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu);
+    Menu(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu, ContadorPersonas& contadorPersonas);
     /**
      * Inicia el menu interactivo para el usuario.
      */
@@ -20,6 +21,7 @@ private:
     Logger& logger;
     Pipe canalMenuMinistro;
     Pipe canalMinistroMenu;
+    ContadorPersonas& contadorPersonas;
 
     /***
      * Permite al usuario consultar el listado de personas de riesgo.
@@ -40,6 +42,11 @@ private:
      */
     int bajaUsuarioCaracteristica(int numeroRegistroCaracteristica);
 
+    /**
+     * Envia una accion al Ministro de Seguridad
+     * @param accion
+     * @param dato
+     */
     void enviarAMinistro(int accion, const string &dato);
 };
 

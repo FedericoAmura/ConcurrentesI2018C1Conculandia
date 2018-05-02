@@ -8,6 +8,7 @@ void Menu::iniciar() {
         cout << "1: Consultar caracteristicas personas de riesgos" << endl;
         cout << "2: Alta de caracteristica de personas de riesgos" << endl;
         cout << "3: Eliminar caracteristica de personas de riesgos" << endl;
+        cout << "4: Informe de Turistas y Residente" << endl;
         cout << "Seleccione una opcion: ";
         cin >> input;
 
@@ -15,14 +16,15 @@ void Menu::iniciar() {
             case '0':
                 cout << "Se procedera a cerrar la oficina de aduanas" << endl;
                 break;
-            case '1':
-            {
-                cout << "Listado de caracteristicas" << endl;
+            case '1': {
+                cout << "=============================================" << endl;
+                cout << "         Listado de caracteristicas" << endl;
+                cout << "=============================================" << endl;
                 vector<string> listado = this->consultarPersonasRiesgoAMinistro();
                 if ( listado.size() > 0 ) {
                     int contador = 0;
                     for (auto &&caracteristica  : listado) {
-                        cout << contador <<" " << caracteristica << endl;
+                        cout <<"  "<< contador <<": " << caracteristica << endl;
                         contador++;
                     }
                 } else {
@@ -34,7 +36,7 @@ void Menu::iniciar() {
                 string caracteristica;
                 bool ingregoCorrecto = false;
                 while (!ingregoCorrecto) {
-
+                    cout << "=============================================" << endl;
                     cout << "Alta de caracteristica de Personas de Riesgos" << endl;
                     cout << "=============================================" << endl;
                     cout << "Describa una caracteristica y presione Enter" << endl;
@@ -58,6 +60,7 @@ void Menu::iniciar() {
                 string nroCaracteristica;
                 bool ingregoCorrecto = false;
                 while (!ingregoCorrecto) {
+                    cout << "=============================================" << endl;
                     cout << "Baja de caracteristica de Personas de Riesgos" << endl;
                     cout << "=============================================" << endl;
                     cout << "Ingrese un nro de caracteristica y presione Enter" << endl;
@@ -75,6 +78,22 @@ void Menu::iniciar() {
                     }
                 }
                 this->bajaUsuarioCaracteristica(atoi(nroCaracteristica.c_str()));
+                break;
+            }
+            case '4':{
+                contadorPersonasStruct c;
+                c = contadorPersonas.getContadores();
+                logger.log("Residentes Ingresados: " + to_string(c.residentesIngresados));
+                logger.log("Residentes a oficina de Policia: " + to_string(c.residentesOficinaPolicia));
+                logger.log("Extranjeros Ingresados: " + to_string(c.extranjerosIngresados));
+                logger.log("Extranjeros Deportados: " + to_string(c.extranjerosDeportados));
+                cout << "=============================================" << endl;
+                cout << "            Informe de Personas" << endl;
+                cout << "=============================================" << endl;
+                cout << "  Residentes Ingresados:" << to_string(c.residentesIngresados) << endl;
+                cout << "  Residentes a oficina de Policia:" << to_string(c.residentesOficinaPolicia) << endl;
+                cout << "  Extranjeros Ingresados:" << to_string(c.extranjerosIngresados) << endl;
+                cout << "  Extranjeros Deportados:" << to_string(c.extranjerosDeportados) << endl;
                 break;
             }
             default:
@@ -139,7 +158,8 @@ int Menu::bajaUsuarioCaracteristica(int numeroRegistroCaracteristica) {
     this->enviarAMinistro(MinistroSeguridad::ACCION_BAJA, to_string(numeroRegistroCaracteristica));
 }
 
-Menu::Menu(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu) :
+Menu::Menu(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu, ContadorPersonas& contadorPersonas) :
         logger(logger),
         canalMenuMinistro(canalMenuMinistro),
-        canalMinistroMenu(canalMinistroMenu) {}
+        canalMinistroMenu(canalMinistroMenu),
+        contadorPersonas(contadorPersonas){}
