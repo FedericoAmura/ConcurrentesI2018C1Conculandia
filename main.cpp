@@ -43,14 +43,6 @@ int main(int argc, char* argv[]) {
     Status::AddFileDescriptor(contadorPersonas.getFileDescriptor());
     contadorPersonas.inicializar();
 
-/*
-    contadorPersonasStruct c;
-    c = contadorPersonas.getContadores();
-    logger.log("Residentes Ingresados: " + to_string(c.residentesIngresados));
-    logger.log("Residentes a oficina de Policia: " + to_string(c.residentesOficinaPolicia));
-    logger.log("Extranjeros Ingresados: " + to_string(c.extranjerosIngresados));
-    logger.log("Extranjeros Deportados: " + to_string(c.extranjerosDeportados));
-*/
     vector<Ventanilla*> ventanillas;
     for (int i = 0; i < params.cantVentanillas; ++i) {
         Ventanilla* ventanilla = new Ventanilla(logger, canalLectura, portaSellos);
@@ -71,7 +63,7 @@ int main(int argc, char* argv[]) {
     logger.log("Ministro de seguridad inicializado");
 
 
-    Menu menu(logger, canalIda, canalVuelta);
+    Menu menu(logger, canalIda, canalVuelta, contadorPersonas);
     menu.iniciar();
 
     filaEspera.terminar();
