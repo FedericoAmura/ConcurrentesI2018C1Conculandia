@@ -18,6 +18,10 @@ public:
 
     static bool esNumerico(const string& str);
 
+    static int validarParametros(t_parametros parametros);
+
+    static string obtenerMensajeError(int codigoMensaje);
+
 };
 
 

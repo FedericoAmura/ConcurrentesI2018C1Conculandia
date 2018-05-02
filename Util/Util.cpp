@@ -77,3 +77,27 @@ bool Util::esNumerico(const string& str){
 
     return true;
 }
+
+int Util::validarParametros(t_parametros parametros) {
+    if (parametros.cantVentanillas <= 0) {
+        return 1;
+    } else if (parametros.cantSellos <= 0) {
+        return 2;
+    }
+    return 0;
+}
+
+string Util::obtenerMensajeError(int codigoMensaje) {
+    string mensaje;
+    switch (codigoMensaje) {
+        case 1:
+            mensaje = "Parametros incorrectos: Ingrese una cantidad de ventanias mayor a cero con el paramtro -v";
+            break;
+        case 2:
+            mensaje = "Parametros incorrectos: Ingrese una cantidad de sellos mayor a cero con el paramtro -s";
+            break;
+        default:
+            break;
+    }
+    return mensaje;
+}

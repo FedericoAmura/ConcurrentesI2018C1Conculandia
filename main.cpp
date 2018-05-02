@@ -21,6 +21,11 @@ int main(int argc, char* argv[]) {
     atexit(Status::CloseFileDescriptors);
 
     t_parametros params = Util::tomarParametros(argc, argv);
+    int codigoValidacion = Util::validarParametros(params);
+    if (codigoValidacion != 0) {
+        cout << Util::obtenerMensajeError(codigoValidacion) << endl;
+        return 0;
+    }
 
     Logger logger("log.txt", params.debug);
     Status::AddFileDescriptor(logger.getFileDescriptor());
@@ -70,6 +75,10 @@ int main(int argc, char* argv[]) {
     terminarVentanillas(params, ventanillas);
     portaSellos.terminar();
     ministroSeguridad.terminar();
+    canalIda.cerrar();
+    canalVuelta.cerrar();
+    canalLectura.cerrar();
+    canalEscritura.cerrar();
     logger.log("Finalizando oficina de aduanas de conculandia");
     return 0;
 }
