@@ -14,6 +14,7 @@ private:
 
 public:
 	LockFile ( const std::string nombre );
+	LockFile ( const std::string nombre, bool truncar );
 	~LockFile();
 
 	int getFileDescriptor();

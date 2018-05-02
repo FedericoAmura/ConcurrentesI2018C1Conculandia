@@ -32,11 +32,25 @@ void Menu::iniciar() {
             }
             case '2': {
                 string caracteristica;
-                cout << "Alta de caracteristica de Personas de Riesgos" << endl;
-                cout << "=============================================" << endl;
-                cout << "Describa una caracteristica y presione Enter" << endl;
-                cin >> caracteristica;
+                bool ingregoCorrecto = false;
+                while (!ingregoCorrecto) {
 
+                    cout << "Alta de caracteristica de Personas de Riesgos" << endl;
+                    cout << "=============================================" << endl;
+                    cout << "Describa una caracteristica y presione Enter" << endl;
+
+                    cin.ignore();
+                    getline(cin, caracteristica, '\n');
+
+                    if (caracteristica.size() > 100) {
+                        cout << "La longitud del nuevo riesgo es muy largo. Ingrese otro riesgo mas corto" << endl;
+                        ingregoCorrecto = false;
+                    } else {
+                        ingregoCorrecto = true;
+                    }
+                }
+
+                this->altaUsuarioCaracteristica(caracteristica);
                 break;
             }
 
@@ -54,15 +68,12 @@ void Menu::iniciar() {
 }
 
 vector<string> Menu::consultarPersonasRiesgoAMinistro() {
-    string itemCaracteristica;
-    char bufferEnvio[MinistroSeguridad::BUFFERSIZE_MENU_MINISTRO];
-    char bufferVuelta[MinistroSeguridad::BUFFERSIZE_MINISTRO_MENU];
-    vector<string> caracteristicas;
-    stringstream serializado;
-    serializado<<1<<setw(MinistroSeguridad::BUFFERSIZE_MENU_MINISTRO)<<endl;
-    strcpy(bufferEnvio, serializado.str().c_str());
 
-    canalMenuMinistro.escribir ( static_cast<const void*>(bufferEnvio), MinistroSeguridad::BUFFERSIZE_MENU_MINISTRO );
+    vector<string> caracteristicas;
+    string itemCaracteristica;
+    char bufferVuelta[MinistroSeguridad::BUFFERSIZE_MINISTRO_MENU];
+
+    this->enviarAMinistro(MinistroSeguridad::ACCION_CONSULTA, "");
 
     // Recibimos el listado del ministro.
     ssize_t bytesLeidos = canalMinistroMenu.leer ( static_cast<void*>(bufferVuelta), MinistroSeguridad::BUFFERSIZE_MINISTRO_MENU );
@@ -84,12 +95,20 @@ vector<string> Menu::consultarPersonasRiesgoAMinistro() {
     return caracteristicas;
 }
 
+void Menu::enviarAMinistro(int accion, const string &dato) {
+    char bufferEnvio[MinistroSeguridad::BUFFERSIZE_MENU_MINISTRO];
+    stringstream serializado;
+    serializado <<setw(1)<< accion << setw(MinistroSeguridad::BUFFERSIZE_MENU_MINISTRO-1) << dato << endl;
+    strcpy(bufferEnvio, serializado.str().c_str());
+    canalMenuMinistro.escribir (static_cast<const void*>(bufferEnvio), MinistroSeguridad::BUFFERSIZE_MENU_MINISTRO );
+}
+
 /**
  * Permite al usuario dar de alta una caracteristica
  * @param caracteristica
  */
 int Menu::altaUsuarioCaracteristica(string caracteristica) {
-
+    this->enviarAMinistro(MinistroSeguridad::ACCION_ALTA, caracteristica);
 }
 
 /**

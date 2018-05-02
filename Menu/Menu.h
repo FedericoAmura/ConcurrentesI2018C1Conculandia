@@ -40,6 +40,7 @@ private:
      */
     int bajaUsuarioCaracteristica(int numeroRegistroCaracteristica);
 
+    void enviarAMinistro(int accion, const string &dato);
 };
 
 

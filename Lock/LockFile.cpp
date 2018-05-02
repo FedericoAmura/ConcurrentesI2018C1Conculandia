@@ -9,6 +9,21 @@ LockFile :: LockFile ( const std::string nombre ) {
 	this->fd = open ( this->nombre.c_str(),O_CREAT|O_TRUNC|O_WRONLY,0777 );
 }
 
+LockFile :: LockFile ( const std::string nombre, bool truncar ) {
+	this->nombre = nombre;
+	this->fl.l_type = F_WRLCK;
+	this->fl.l_whence = SEEK_SET;
+	this->fl.l_start = 0;
+	this->fl.l_len = 0;
+	if (truncar) {
+		this->fd = open ( this->nombre.c_str(),O_CREAT|O_TRUNC|O_WRONLY,0777 );
+	} else {
+		this->fd = open ( this->nombre.c_str(),O_CREAT|O_WRONLY,0777 );
+	}
+
+}
+
+
 int LockFile::getFileDescriptor() {
 	return this->fd;
 }

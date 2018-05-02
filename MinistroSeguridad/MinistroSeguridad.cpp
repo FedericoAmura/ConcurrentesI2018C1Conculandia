@@ -57,7 +57,8 @@ void MinistroSeguridad::iniciar() {
                 informarAMenuPersonasRiesgo(caracteristicas);
 
             } else if (accionRecibida == ACCION_ALTA) {
-                logger.log("Alta.");
+                logger.log("Alta: " + Util::trim(mensaje.substr(1,100)));
+                this->escribirNuevaCaracteristica(Util::trim(mensaje.substr(1,100)));
             } else if (accionRecibida == ACCION_BAJA) {
                 logger.log("Baja.");
             } else {
@@ -100,12 +101,14 @@ void MinistroSeguridad::informarAMenuCantidadRegistros(vector<string> &caracteri
     canalMinistroMenu.escribir(static_cast<const void*>(bufferRespuesta), BUFFERSIZE_MINISTRO_MENU);
 }
 
-void MinistroSeguridad::leerTodoArchivoRiesgo(vector<string> &caracteristicas) const {
+void MinistroSeguridad::leerTodoArchivoRiesgo(vector<string> &caracteristicas) {
     ssize_t bytesLeidos;
     int BUFFSIZE_REGISTRO = 100;
     char bufferRegistro[BUFFSIZE_REGISTRO];
     string caracteristica;
     int i=0;
+    archivoRiesgoLectura.rebobinar();
+    archivoRiesgoLectura.tomarLock();
     while ( (bytesLeidos = archivoRiesgoLectura.leer(&bufferRegistro[i], 1) == 1) ) {
         if (bufferRegistro[i] == '\n' || bufferRegistro[i] == 0x0) {
             bufferRegistro[i] = 0;
@@ -116,15 +119,24 @@ void MinistroSeguridad::leerTodoArchivoRiesgo(vector<string> &caracteristicas) c
         }
         i++;
     }
-
+    archivoRiesgoLectura.liberarLock();
     if (bytesLeidos < -1) {
         logger.log("Ministro: Hubo un error leyendo archivo de riesgo de personas.");
     }
 }
 
+int MinistroSeguridad::escribirNuevaCaracteristica(string caracteristica) {
+    ssize_t bytesEscritos;
+    archivoRiesgoEscritura.tomarLock();
+    caracteristica = caracteristica + "\n";
+    bytesEscritos = archivoRiesgoEscritura.escribir(caracteristica.c_str(), caracteristica.length());
+    archivoRiesgoEscritura.liberarLock();
+}
+
 MinistroSeguridad::MinistroSeguridad(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu) :
         ProcesoHijo(logger),
         archivoRiesgoLectura("personasriesgo.txt"),
+        archivoRiesgoEscritura("personasriesgo.txt", false),
         canalMenuMinistro(canalMenuMinistro),
         canalMinistroMenu(canalMinistroMenu) {}
 

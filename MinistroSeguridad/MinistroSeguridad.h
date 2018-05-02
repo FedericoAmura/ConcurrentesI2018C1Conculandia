@@ -17,6 +17,9 @@ public:
 
     static const int BUFFERSIZE_MENU_MINISTRO;
     static const int BUFFERSIZE_MINISTRO_MENU;
+    static const int ACCION_CONSULTA;
+    static const int ACCION_ALTA;
+    static const int ACCION_BAJA;
 
     MinistroSeguridad(Logger& logger, Pipe& canalMenuMinistro, Pipe& canalMinistroMenu);
     ~MinistroSeguridad() override;
@@ -27,10 +30,11 @@ public:
 private:
 
     LockReadFile archivoRiesgoLectura;
+    LockFile archivoRiesgoEscritura;
     Pipe canalMenuMinistro;
     Pipe canalMinistroMenu;
 
-    void leerTodoArchivoRiesgo(vector<string> &caracteristicas) const;
+    void leerTodoArchivoRiesgo(vector<string> &caracteristicas);
 
     void iniciar();
 
@@ -40,9 +44,9 @@ private:
 
     void informarAMenuAccionIncorrecta();
 
-    static const int ACCION_CONSULTA;
-    static const int ACCION_ALTA;
-    static const int ACCION_BAJA;
+    int escribirNuevaCaracteristica(string caracteristica);
+
+
 };
 
 #endif //ADUANACONCULANDIA_MINISTROSEGURIDAD_H
