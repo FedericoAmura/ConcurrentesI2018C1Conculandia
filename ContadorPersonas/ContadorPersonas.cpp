@@ -59,14 +59,19 @@ contadorPersonasStruct ContadorPersonas::getContadores() {
 void ContadorPersonas::inicializar() {
     contadorPersonasStruct c;
 
+    lock.tomarLock();
     c.residentesOficinaPolicia = 0;
     c.residentesIngresados = 0;
     c.extranjerosDeportados = 0;
     c.extranjerosIngresados = 0;
+    contador.escribir(c);
+    lock.liberarLock();
 }
 
 int ContadorPersonas::getFileDescriptor() {
     return lock.getFileDescriptor();
 }
 
-ContadorPersonas::~ContadorPersonas() = default;
+ContadorPersonas::~ContadorPersonas() {
+    //contador.liberar();
+};
