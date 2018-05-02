@@ -10,6 +10,12 @@ El siguiente diagrama de procesos modela los diferentes procesos que se ejecutan
 
 ![Diagrama de procesos](https://github.com/FedericoAmura/ConcurrentesI2018C1Conculandia/blob/master/diagramaProcesos.png "Diagrama de procesos")
 
+## Diagrama de clases
+
+Se adjunta un diagrama de clases de la aplicación, en ella se modelan las clases y sus distintas relaciones. Para mayor legibilidad, se omitieron las clases de los mecanismos de sincronización y comunicación entre procesos. Puede verse tambien [online](https://www.lucidchart.com/invitations/accept/5e77560c-b42e-41a0-93a9-eecb19302ab6 "Diagrama de clases")
+
+![Diagrama de clases](https://github.com/FedericoAmura/ConcurrentesI2018C1Conculandia/blob/master/diagramaClases.jpeg "Diagrama de clases")
+
 ## Instalación
 Para la instalación de este proyecto debe contar con cmake y las herramientas de compilación para C++11
 
