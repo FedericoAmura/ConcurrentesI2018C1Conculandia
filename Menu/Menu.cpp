@@ -145,7 +145,7 @@ void Menu::enviarAMinistro(int accion, const string &dato) {
  * Permite al usuario dar de alta una caracteristica
  * @param caracteristica
  */
-int Menu::altaUsuarioCaracteristica(string caracteristica) {
+void Menu::altaUsuarioCaracteristica(string caracteristica) {
     this->enviarAMinistro(MinistroSeguridad::ACCION_ALTA, caracteristica);
 }
 
@@ -154,7 +154,7 @@ int Menu::altaUsuarioCaracteristica(string caracteristica) {
  * @param numeroRegistroCaracteristica
  * @return
  */
-int Menu::bajaUsuarioCaracteristica(int numeroRegistroCaracteristica) {
+void Menu::bajaUsuarioCaracteristica(int numeroRegistroCaracteristica) {
     this->enviarAMinistro(MinistroSeguridad::ACCION_BAJA, to_string(numeroRegistroCaracteristica));
 }
 

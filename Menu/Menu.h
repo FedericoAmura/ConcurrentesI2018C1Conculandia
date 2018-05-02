@@ -33,14 +33,14 @@ private:
      * Permite al usuario dar de alta una caracteristica
      * @param caracteristica
      */
-    int altaUsuarioCaracteristica(string caracteristica);
+    void altaUsuarioCaracteristica(string caracteristica);
 
     /**
      * Permite al usuario dar de baja una caracteristica
      * @param numeroRegistroCaracteristica
      * @return
      */
-    int bajaUsuarioCaracteristica(int numeroRegistroCaracteristica);
+    void bajaUsuarioCaracteristica(int numeroRegistroCaracteristica);
 
     /**
      * Envia una accion al Ministro de Seguridad

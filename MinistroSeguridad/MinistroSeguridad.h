@@ -44,9 +44,9 @@ private:
 
     void informarAMenuAccionIncorrecta();
 
-    int escribirNuevaCaracteristica(string caracteristica);
+    void escribirNuevaCaracteristica(string caracteristica);
 
-    int eliminarCaracteristica(string nroCaracteristica);
+    void eliminarCaracteristica(string nroCaracteristica);
 
 
 
