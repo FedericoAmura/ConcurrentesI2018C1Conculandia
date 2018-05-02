@@ -128,7 +128,7 @@ void MinistroSeguridad::leerTodoArchivoRiesgo(vector<string> &caracteristicas) {
     }
 }
 
-int MinistroSeguridad::escribirNuevaCaracteristica(string caracteristica) {
+void MinistroSeguridad::escribirNuevaCaracteristica(string caracteristica) {
     ssize_t bytesEscritos;
     archivoRiesgoEscritura.tomarLock();
     caracteristica = caracteristica + "\n";
@@ -139,7 +139,7 @@ int MinistroSeguridad::escribirNuevaCaracteristica(string caracteristica) {
     archivoRiesgoEscritura.liberarLock();
 }
 
-int MinistroSeguridad::eliminarCaracteristica(string nroCaracteristica) {
+void MinistroSeguridad::eliminarCaracteristica(string nroCaracteristica) {
     logger.log("Ministro: Eliminando numero de caracteristia" + nroCaracteristica);
 
     int registroAEliminar = atoi(nroCaracteristica.c_str());
