@@ -101,3 +101,8 @@ string Util::obtenerMensajeError(int codigoMensaje) {
     }
     return mensaje;
 }
+
+string Util :: eliminarFinLinea(string cadena) {
+    cadena.erase(std::remove(cadena.begin(), cadena.end(), '\n'), cadena.end());
+    return cadena;
+}
