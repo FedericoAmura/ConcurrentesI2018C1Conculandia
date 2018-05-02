@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
 
     t_parametros params = Util::tomarParametros(argc, argv);
 
-    Logger logger("log.txt", true); // TODO hacer que el debugging se active cuando lo corres con parametro -d
+    Logger logger("log.txt", params.debug); // TODO hacer que el debugging se active cuando lo corres con parametro -d
     Status::AddFileDescriptor(logger.getFileDescriptor());
     logger.log("Cargando oficina de aduanas de conculandia");
 

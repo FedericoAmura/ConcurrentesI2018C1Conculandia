@@ -6,6 +6,7 @@ using namespace std;
 typedef struct parametros {
     int cantVentanillas;
     int cantSellos;
+    bool debug;
 } t_parametros;
 
 class Util {

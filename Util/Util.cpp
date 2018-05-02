@@ -11,19 +11,21 @@ t_parametros Util::tomarParametros(int argc,char* argv[]) {
     t_parametros params;
     params.cantVentanillas = 0;
     params.cantSellos = 0;
+    params.debug = false;
 
     while (pendingParams)
     {
         static struct option long_options[] =
             {
-                    {"ventanillas",  required_argument, 0, 'v'},
-                    {"sellos",  required_argument, 0, 's'},
+                    {"ventanillas",  required_argument, nullptr, 'v'},
+                    {"sellos",  required_argument, nullptr, 's'},
+                    {"debug",  no_argument, nullptr, 'd'},
                     {0, 0, 0, 0}
             };
         /* getopt_long stores the option index here. */
         int option_index = 0;
 
-        c = getopt_long (argc, argv, "v:s:",
+        c = getopt_long (argc, argv, "v:s:d",
                          long_options, &option_index);
 
         /* Detect the end of the options. */
@@ -38,6 +40,9 @@ t_parametros Util::tomarParametros(int argc,char* argv[]) {
                 break;
             case 's':
                 params.cantSellos = atoi(optarg);
+                break;
+            case 'd':
+                params.debug = true;
                 break;
 
             case '?':
