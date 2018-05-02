@@ -68,7 +68,6 @@ void FilaEspera::inicializar() {
     vector<Persona> personas = obtenerPersonas();
     canalEscritura.abrir();
     for (Persona persona : personas) {
-        sleep(2);   // TODO no podemos usar sleep
         char buffer[Persona::TAMANIO_SERIALIZADO];
         strcpy(buffer, persona.serializar().c_str());
         canalEscritura.escribir(static_cast<const void *>(buffer), Persona::TAMANIO_SERIALIZADO);

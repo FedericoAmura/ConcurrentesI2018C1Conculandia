@@ -5,6 +5,7 @@
 #include "../PortaSellos/PortaSellos.h"
 #include "../ProcesoHijo/ProcesoHijo.h"
 #include "../ContadorPersonas/ContadorPersonas.h"
+#include "../Lock/LockReadFile.h"
 
 class Ventanilla : public ProcesoHijo {
 
@@ -14,7 +15,6 @@ public:
 
     int getFileDescriptor();
     pid_t ejecutar() override;
-    ssize_t leerSiguientePersona(char *buffer);
 
 private:
     FifoLectura canalLectura;
@@ -23,7 +23,13 @@ private:
     ContadorPersonas contadorPersonas;
 
     void iniciarAtencion();
+    bool examinar(Persona persona);
+    void noIngresa(Persona persona);
+    Persona leerPersona(char* buffer);
 
+    bool buscarRiesgo(string riesgo);
+
+    void ingresa(Persona persona);
 };
 
 #endif //TP1_CONCULANDIA_VENTANILLA_H
