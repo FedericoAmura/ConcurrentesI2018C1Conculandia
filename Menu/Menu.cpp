@@ -79,13 +79,15 @@ vector<string> Menu::consultarPersonasRiesgoAMinistro() {
     ssize_t bytesLeidos = canalMinistroMenu.leer ( static_cast<void*>(bufferVuelta), MinistroSeguridad::BUFFERSIZE_MINISTRO_MENU );
     if (bytesLeidos > 0) {
         string cantidadRegistros = bufferVuelta;
-        logger.log("Menu: Recibimos del ministro cant registros: " + Util::trim(cantidadRegistros));
+        logger.log("Menu: Recibimos del ministro cant registros: " + Util::trim(cantidadRegistros.substr(0,MinistroSeguridad::BUFFERSIZE_MINISTRO_MENU)));
         int cantidad = atoi(Util::trim(cantidadRegistros).c_str());
         if ( cantidad > 0 ) {
             for (int i = 0; i < cantidad; i++) {
                 string caracteristica = bufferVuelta;
                 ssize_t bytesLeidos = canalMinistroMenu.leer ( static_cast<void*>(bufferVuelta), MinistroSeguridad::BUFFERSIZE_MINISTRO_MENU );
-                itemCaracteristica = Util::trim(bufferVuelta);
+
+                itemCaracteristica = bufferVuelta;
+                itemCaracteristica = Util::trim(itemCaracteristica.substr(0, MinistroSeguridad::BUFFERSIZE_MINISTRO_MENU));
                 logger.log("Menu: Recibimos del ministro : " + itemCaracteristica);
                 caracteristicas.push_back(itemCaracteristica);
             }
