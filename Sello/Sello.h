@@ -9,9 +9,10 @@ class Sello {
     public:
         void sellar(Persona persona);
         Sello();
+        ~Sello();
 
     private:
-        ContadorPersonas contadorPersonas;
+
 
 };
 

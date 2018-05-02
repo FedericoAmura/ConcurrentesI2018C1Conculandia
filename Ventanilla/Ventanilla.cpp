@@ -162,6 +162,7 @@ void Ventanilla::ingresa(Persona persona) {
         sello = portaSellos.getSello();
         logger.log("Agarro un sello");
         sello.sellar(persona);
+        contadorPersonas.agregarExtranjeroIngresado();
         portaSellos.putSello(sello);
         logger.log("Devuelvo el sello");
         logger.log("Disfrute su estadia en Conculandia.");
