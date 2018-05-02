@@ -1,3 +1,5 @@
+#include <random>
+
 #include "./FilaEspera.h"
 #include "../Signal/SignalHandler.h"
 
@@ -66,6 +68,11 @@ void FilaEspera::parsearLinea(string& linea, vector<string>& campos) const {
 
 
 void FilaEspera::inicializar() {
+    random_device rd;
+    mt19937_64 gen(rd());
+    uniform_int_distribution<unsigned int> dis;
+    unsigned int espera = 0;
+
     vector<Persona> personas = obtenerPersonas();
     canalEscritura.abrir();
     for (Persona persona : personas) {
@@ -75,7 +82,9 @@ void FilaEspera::inicializar() {
         if (sigint_handler.getGracefulQuit() == 1) {
             break;
         }
-        sleep(1); // Unicamente para simular la entrada de personas.
+        espera = 2+dis(gen)%3;
+        logger.log("Espero "+to_string(espera)+" segundos para atender el proximo cliente de la lista de espera");
+        sleep(espera); // Unicamente para simular la entrada de personas.
     }
     canalEscritura.cerrar();
 }
