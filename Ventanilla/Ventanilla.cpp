@@ -164,6 +164,7 @@ void Ventanilla::ingresa(Persona persona) {
         sello.sellar(persona);
         portaSellos.putSello(sello);
         logger.log("Devuelvo el sello");
+        logger.log("Disfrute su estadia en Conculandia.");
     }
 
 };
