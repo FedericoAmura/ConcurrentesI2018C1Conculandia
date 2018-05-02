@@ -2,6 +2,7 @@
 #define CONCULANDIA_UTIL_H
 
 #include <string>
+#include <algorithm>
 using namespace std;
 typedef struct parametros {
     int cantVentanillas;
@@ -17,6 +18,12 @@ public:
     static string trim(const string& str);
 
     static bool esNumerico(const string& str);
+
+    static int validarParametros(t_parametros parametros);
+
+    static string obtenerMensajeError(int codigoMensaje);
+
+    static string eliminarFinLinea(string cadena);
 
 };
 

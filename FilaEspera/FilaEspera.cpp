@@ -60,6 +60,7 @@ void FilaEspera::parsearLinea(string& linea, vector<string>& campos) const {
         campos.push_back(token);
         linea.erase(0, pos + delimiter.length());
     }
+    linea = Util::eliminarFinLinea(linea);
     campos.push_back(linea);
 }
 
@@ -74,6 +75,7 @@ void FilaEspera::inicializar() {
         if (sigint_handler.getGracefulQuit() == 1) {
             break;
         }
+        sleep(1); // Unicamente para simular la entrada de personas.
     }
     canalEscritura.cerrar();
 }
