@@ -48,6 +48,7 @@ void MinistroSeguridad::iniciar() {
 
             int accionRecibida = atoi(mensaje.substr(0,1).c_str());
             if (accionRecibida == ACCION_CONSULTA) { //enviamos listado al menu.
+                logger.log("Ministro: CONSULTA listado de personas de riesgo ");
 
                 vector<string> caracteristicas;
                 leerTodoArchivoRiesgo(caracteristicas);
@@ -57,17 +58,20 @@ void MinistroSeguridad::iniciar() {
                 informarAMenuPersonasRiesgo(caracteristicas);
 
             } else if (accionRecibida == ACCION_ALTA) {
-                logger.log("Alta: " + Util::trim(mensaje.substr(1,100)));
+                logger.log("Ministro: ALTA nueva caracteristica de riesgo " + Util::trim(mensaje.substr(1,100)));
                 this->escribirNuevaCaracteristica(Util::trim(mensaje.substr(1,100)));
             } else if (accionRecibida == ACCION_BAJA) {
-                logger.log("Baja: " + Util::trim(mensaje.substr(1,100)));
+                logger.log("Ministro: BAJA caracteristica de riesgo " + Util::trim(mensaje.substr(1,100)));
                 this->eliminarCaracteristica(Util::trim(mensaje.substr(1,100)));
             } else {
                 informarAMenuAccionIncorrecta();
             }
         }
-        logger.log("Ministro: Vuelvo a leer desde el menu.");
+        logger.log("Ministro: Espero acciones del menu.");
         ssize_t bytesLeidos = canalMenuMinistro.leer (static_cast<void*>(buffer), BUFFERSIZE_MENU_MINISTRO );
+        if (bytesLeidos == -1) {
+            logger.log("Ministro: Se termino de leer desde el pipe");
+        }
     }
 }
 
@@ -83,11 +87,10 @@ void MinistroSeguridad::informarAMenuAccionIncorrecta() {
 void MinistroSeguridad::informarAMenuPersonasRiesgo(vector<string> &caracteristicas) {
     char bufferRespuesta[BUFFERSIZE_MINISTRO_MENU];
     for ( int i = 0; i < caracteristicas.size(); i++ ) {
-        logger.log("Ministro: escribo." + caracteristicas.at(i));
+        logger.log("Ministro: informo el listado de riesgos al menu.");
         stringstream respuesta;
         respuesta<<setw(BUFFERSIZE_MINISTRO_MENU)<<caracteristicas.at(i);
         strcpy(bufferRespuesta, respuesta.str().c_str());
-        logger.log("Ministro: Mando item caracteristica." + respuesta.str());
         canalMinistroMenu.escribir(static_cast<const void*>(bufferRespuesta), BUFFERSIZE_MINISTRO_MENU);
     }
 }
@@ -98,7 +101,6 @@ void MinistroSeguridad::informarAMenuCantidadRegistros(vector<string> &caracteri
     stringstream cantidadRegistros;
     cantidadRegistros<<setw(BUFFERSIZE_MINISTRO_MENU)<<caracteristicas.size();
     strcpy(bufferRespuesta, cantidadRegistros.str().c_str());
-    logger.log("Ministro: Mando longintud." + cantidadRegistros.str());
     canalMinistroMenu.escribir(static_cast<const void*>(bufferRespuesta), BUFFERSIZE_MINISTRO_MENU);
 }
 
