@@ -3,7 +3,8 @@
 void Menu::iniciar() {
     char input = 'a';
     while (input != '0') {
-        cout << endl << "------- MENU -------" << endl;
+        cout << endl;
+        cout << "------- MENU -------" << endl;
         cout << "0: Salir" << endl;
         cout << "1: Consultar caracteristicas personas de riesgos" << endl;
         cout << "2: Alta de caracteristica de personas de riesgos" << endl;
@@ -14,14 +15,16 @@ void Menu::iniciar() {
 
         switch (input) {
             case '0':
+                cout << endl;
                 cout << "Se procedera a cerrar la oficina de aduanas" << endl;
                 break;
             case '1': {
+                cout << endl;
                 cout << "=============================================" << endl;
-                cout << "         Listado de caracteristicas" << endl;
+                cout << "          Listado de caracteristicas         " << endl;
                 cout << "=============================================" << endl;
                 vector<string> listado = this->consultarPersonasRiesgoAMinistro();
-                if ( listado.size() > 0 ) {
+                if ( !listado.empty() ) {
                     int contador = 0;
                     for (auto &&caracteristica  : listado) {
                         cout <<"  "<< contador <<": " << caracteristica << endl;
@@ -36,6 +39,7 @@ void Menu::iniciar() {
                 string caracteristica;
                 bool ingregoCorrecto = false;
                 while (!ingregoCorrecto) {
+                    cout << endl;
                     cout << "=============================================" << endl;
                     cout << "Alta de caracteristica de Personas de Riesgos" << endl;
                     cout << "=============================================" << endl;
@@ -60,6 +64,7 @@ void Menu::iniciar() {
                 string nroCaracteristica;
                 bool ingregoCorrecto = false;
                 while (!ingregoCorrecto) {
+                    cout << endl;
                     cout << "=============================================" << endl;
                     cout << "Baja de caracteristica de Personas de Riesgos" << endl;
                     cout << "=============================================" << endl;
@@ -87,13 +92,14 @@ void Menu::iniciar() {
                 logger.log("Residentes a oficina de Policia: " + to_string(c.residentesOficinaPolicia));
                 logger.log("Extranjeros Ingresados: " + to_string(c.extranjerosIngresados));
                 logger.log("Extranjeros Deportados: " + to_string(c.extranjerosDeportados));
+                cout << endl;
                 cout << "=============================================" << endl;
                 cout << "            Informe de Personas" << endl;
                 cout << "=============================================" << endl;
-                cout << "  Residentes Ingresados:" << to_string(c.residentesIngresados) << endl;
-                cout << "  Residentes a oficina de Policia:" << to_string(c.residentesOficinaPolicia) << endl;
-                cout << "  Extranjeros Ingresados:" << to_string(c.extranjerosIngresados) << endl;
-                cout << "  Extranjeros Deportados:" << to_string(c.extranjerosDeportados) << endl;
+                cout << "  Residentes Ingresados: " << to_string(c.residentesIngresados) << endl;
+                cout << "  Residentes a oficina de Policia: " << to_string(c.residentesOficinaPolicia) << endl;
+                cout << "  Extranjeros Ingresados: " << to_string(c.extranjerosIngresados) << endl;
+                cout << "  Extranjeros Deportados: " << to_string(c.extranjerosDeportados) << endl;
                 break;
             }
             default:
@@ -124,7 +130,7 @@ vector<string> Menu::consultarPersonasRiesgoAMinistro() {
 
                 itemCaracteristica = bufferVuelta;
                 itemCaracteristica = Util::trim(itemCaracteristica.substr(0, MinistroSeguridad::BUFFERSIZE_MINISTRO_MENU));
-                logger.log("Menu: Recibimos del ministro : " + itemCaracteristica);
+                logger.log("Menu: Recibimos del ministro: " + itemCaracteristica);
                 caracteristicas.push_back(itemCaracteristica);
             }
         }
