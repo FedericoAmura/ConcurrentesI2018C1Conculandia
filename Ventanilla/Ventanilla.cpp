@@ -27,6 +27,7 @@ pid_t Ventanilla::ejecutar() {
     logger.log("Termino la tarea de la ventanilla");
     SignalHandler::destruir();
 
+    contadorPersonas.liberarMemoria();
     exit(0);
 }
 

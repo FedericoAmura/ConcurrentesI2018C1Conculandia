@@ -72,6 +72,9 @@ int ContadorPersonas::getFileDescriptor() {
     return lock.getFileDescriptor();
 }
 
+void ContadorPersonas::liberarMemoria() {
+    contador.liberar();
+}
+
 ContadorPersonas::~ContadorPersonas() {
-    //contador.liberar();
 };

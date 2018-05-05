@@ -42,20 +42,7 @@ int main(int argc, char* argv[]) {
     Status::AddFileDescriptor(filaEspera.getFileDescriptor());
     filaEspera.ejecutar();
 
-
     PortaSellos portaSellos(logger, params.cantSellos);
-    ContadorPersonas contadorPersonas;
-    Status::AddFileDescriptor(contadorPersonas.getFileDescriptor());
-    contadorPersonas.inicializar();
-
-    vector<Ventanilla*> ventanillas;
-    for (int i = 0; i < params.cantVentanillas; ++i) {
-        Ventanilla* ventanilla = new Ventanilla(logger, canalLectura, portaSellos);
-        ventanillas.push_back(ventanilla);
-        Status::AddFileDescriptor(ventanilla->getFileDescriptor());
-        ventanilla->ejecutar();
-    }
-    logger.log("Oficina inicializada con "+to_string(params.cantVentanillas)+" ventanillas");
 
     Pipe canalIda;
     Status::AddFileDescriptor(canalIda.getFdLectura());
@@ -67,6 +54,18 @@ int main(int argc, char* argv[]) {
     ministroSeguridad.ejecutar();
     logger.log("Ministro de seguridad inicializado");
 
+    vector<Ventanilla*> ventanillas;
+    for (int i = 0; i < params.cantVentanillas; ++i) {
+        Ventanilla* ventanilla = new Ventanilla(logger, canalLectura, portaSellos);
+        ventanillas.push_back(ventanilla);
+        Status::AddFileDescriptor(ventanilla->getFileDescriptor());
+        ventanilla->ejecutar();
+    }
+    logger.log("Oficina inicializada con "+to_string(params.cantVentanillas)+" ventanillas");
+
+    ContadorPersonas contadorPersonas;
+    Status::AddFileDescriptor(contadorPersonas.getFileDescriptor());
+    contadorPersonas.inicializar();
 
     Menu menu(logger, canalIda, canalVuelta, contadorPersonas);
     menu.iniciar();

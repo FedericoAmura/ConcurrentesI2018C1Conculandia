@@ -16,6 +16,7 @@ class ContadorPersonas {
 public:
     void inicializar();
     int getFileDescriptor();
+    void liberarMemoria();
 
     contadorPersonasStruct getContadores();
     void agregarExtranjeroDeportado();
